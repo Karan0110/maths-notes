@@ -1,0 +1,30 @@
+\documentclass[]{article}
+
+\input{header}
+
+
+\title{Real Analysis}
+\author{Karan Elangovan}
+
+\begin{document}
+
+\maketitle
+
+\doublespacing
+\tableofcontents
+
+\section{Limits and Continuity}
+
+\subsection{Limits}
+
+The value of a function $f$ at $a$, in the abscence of any other information about $f$, gives absolutely no information about $f$ for values close to $a$. A behaviour that is of significant interest is when $f$ "approaches" a value (which is not necessarily $f a$) at $a$, in the specific sense that by considering a sufficiently small neighborhood of $a$, all the images of $f$ are arbitrarily close to $a$. We formalise this intuition in defining the limit of $f$ at $a$.
+
+\begin{defi}[Limit]
+		$l$ is the limit of $f$ at $a$, or symbolically $\lim_{x\to a} f(x) = l$ if and only if
+		\[
+				\forall \epsilon > 0 \exists \delta > 0: \forall 0 < |x - a| < \delta: |f(x) - l| < \epsilon
+		.\] 
+\end{defi}
+
+
+\end{document}
