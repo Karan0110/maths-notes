@@ -73,10 +73,10 @@ Below we have the Zermelo-Frankel axioms, which alongside the Axiom of Choice co
 \end{axiom}
 
 \begin{axiom} [Infinity]
-		There is a set $Z$ which contains $\emptyset$ and if $x \in Z$ then ${x} \in Z$	
+		There is a set $Z$ which contains $\emptyset$ and if $x \in Z$ then $x \cup \{x\} \in Z$	
 
 		\[
-				\exists Z(\emptyset \in Z \land \forall x(x \in Z \implies \exists y(t \in y \iff t = x)))
+				\exists Z(\emptyset \in Z \land \forall x(x \in Z \implies x \cup \{x\} \in Z))
 		.\] 
 \end{axiom}
 
@@ -190,7 +190,7 @@ We may now use the ZF axioms to construct various primitive objects in a rigorou
 
 		A subset $S$ of a partial order in which the ordering induced by the original set makes $S$ a total order is a chain.
 
-		We call a subset $T$ of a chain $S$ an initial segment iff when $u \leq v$ are in $S$ and $v \in $T$, then $u \in T$
+		We call a subset $T$ of a chain $S$ an initial segment iff when $u \leq v$ are in $S$ and $v \in T$, then $u \in T$
 \end{defi}
 
 \begin{defi} [Well-Ordering]
@@ -238,6 +238,44 @@ An extremely useful consequence of the AC is Zorn's Lemma. It is actually equiva
 	Hence $P$ has a maximal element.
 \end{proof}
 
+\subsection{Construction of the Naturals, Integers and Rationals}
+
+	The axiom of infinity guarantees us the existence of an "infinite" set, however this gives us no information as to what kind of infinite set this would be. But a little manipulation allows us to construct a set that will satisfy the Peano axioms of arithmetic.
+
+	\begin{defi} [Successor]
+		We write the successor of a set $x$ as $S(x)$ to denote $x \cup \{x\}$
+	\end{defi}
+	
+	\begin{defi} [Inductive Set]
+		We call a set inductive if it satisfies the conditions of the axiom of infinity, that is it contains $\emptyset$ and if it contains $x$ then it contains $S(x)$. 
+	\end{defi}
+
+	\begin{defi} [Natural Numbers]
+			We define the natural numbers $\mathbb{N}$ as the intersection of all inductive subsets of $Z$ (where $Z$ is the "infinite" set given by the axiom of infinity)
+	\end{defi}
+
+	\begin{thm} [Peano Arithmetic] \label{thm:peano}
+			The natural numbers and successor we have specified satisfy the axioms of Peano Arithmetic (with the additional definition of $0 = \emptyset$), namely:
+			\begin{itemize}
+					\item $0$ is a natural number	
+					\item The successor is an injective function from $\mathbb{N} \to \mathbb{N}$ 
+					\item $0$ has no preimage under the successor function
+					\item Any inductive set of naturals is $\mathbb{N}$ itself.
+			\end{itemize}
+	\end{thm}
+
+	\begin{proof}
+			$0$ is a natural number as every inductive set must contain $\emptyset$ by definition.
+
+			The successor is a function as by definition if $x$ is in an inductive set, then so is $S(x)$. Say $S(x) = S(y)$ for $x \neq y$, then we have $x \cup \{x\} = y \cup \{y\}$, so they both contain the same elements.  $x$ is an element of LHS, hence $x \in y \cup \{y\}$, which means $x \in y$ as $x \not\in \{y\}$ as $x \neq y$. By similar logic $y \in x$, however this contradicts the axiom of regularity. Hence $S(x) = S(y) \implies x = y$, so $S$ is injective.
+
+			$S(x) = x \cup \{x\}$, hence $x \in S(x)$, so $S(x) \neq \emptyset$, so $0$ has no preimage under the successor function.
+
+			If $W$ is an inductive subset of $\mathbb{N}$, then $\mathbb{N} \subset W$ as $\mathbb{N}$ is the intersection of all inductive subets of $Z$. Hence $W = \mathbb{N}$	
+	\end{proof}
+
+	From here we may proceed to inductively define addition, subtraction and multiplication. Then we may define the integers and rationals as a pair of a "sign" (any of 2 distinct sets) and a natural, and as pairs of integers with the second non-zero respectively. We omit these definitions as they are trivial and time-consuming.
+
 \section{Ordinals and Cardinals}
 
 \subsection{Cardinality}
@@ -265,7 +303,7 @@ The function $f: X \to \mathcal{P}(X)$ defined by $f(x) = \{x\}$ is an injection
 			A_1 = g(B) \\
 			A_2 = g \circ f(A)\\
 			A_3 = g \circ f \circ g(B)
-	\end{align}
+	\end{align*}
 	A trivial induction argument shows that $A_{n+1} \subset A_n$. So we may define the sets $A'_n = A_n - A_{n+1}$ and $A'_{\omega} = \bigcap\{A_n\}$. It is trivially shown that these sets form a partition of  $A$. We now define $h: A \to B$ by 
 	\[
 				h(x) = \begin{cases}
@@ -277,5 +315,50 @@ The function $f: X \to \mathcal{P}(X)$ defined by $f(x) = \{x\}$ is an injection
 	As the $A'_n$ forms a partition of $A$, $h$ is well-defined on $A$. By considering a similar sequence starting with $B$, it is trivially shown that $h$ is bijective. Hence $A \sim B$
 \end{proof}
 
+\subsection{Ordinals}
+
+\begin{defi} [Ordinal]
+		An ordinal is a transitive set which is well-ordered by the relation $\leq_\in$
+\end{defi}
+
+\begin{thm} \label{thm:new-ordinals}
+	Let $X$ be a set of ordinals and $\alpha$ and $\beta$ be ordinals, then we have:
+	\begin{itemize}
+			\item $\alpha \cup \{\alpha\}$ is an ordinal
+			\item $\alpha \in \beta$, or $\alpha = \beta$, or $\beta \in \alpha$
+			\item $\cup X$ is an ordinal
+	\end{itemize}
+\end{thm}
+
+\begin{proof}
+		First we show $\alpha' = \alpha \cup \{\alpha\}$ is an ordinal. Consider arbitrary $t \in x \in \alpha'$. Then $x \in \alpha \lor x = \alpha$. If $x = \alpha$, then $y \in \alpha$, hence $y \in \alpha'$. If  $x \in \alpha$, then $y \in \alpha$ by the transtiivity of $\alpha$, and so $y \in \alpha'$. Hence $\alpha'$ is transitive. The relation $\leq_\in$ is antisymmetric for any set by the axiom of regularity. Say $x \leq_\in y$ and $y \leq_\in z$, we consider only when all the inequalities are strict as the other cases are trivial. So we have $x \in y \in z \in \alpha'$. If $z \in \alpha$, then $x \in z$ holds by $\alpha$ being an ordinal. If $z = \alpha$, then by the transitivity of $\alpha$, $x \in \alpha$, so we again have $x \in z$,  hence the relation $\leq_\in$ is transitive over $\alpha'$. Now consider arbitrary  $x, y \in \alpha'$. If $x$ and $y$ are both in $\alpha$, then we have connexity by the ordinality of $\alpha$. If $x = \alpha \land y = \alpha$ then $x = y$ and if $x \in \alpha \land y = \alpha$, then $x \in y$, and vice-versa. Hence  $\leq_\in$ satisfies trichotomy over $\alpha'$. If $\alpha'$ is not well-ordered by $\leq_\in$, then we would have an infinite descending chain of inclusion, which contradicts regularity.
+
+	Next we show the trichotomy relationship between any ordinals. Let $C = \alpha \cap \beta$. Assume for contradiction that $C \neq \alpha$ and $C \neq \beta$. Then $\alpha - C$ is non-empty and so by the well-ordering of $\alpha$, there is a least element $\gamma$. For any $x \in \gamma$, $x \in \alpha$ by transitivity, which means $x \in \beta$, as otherwise would contradict the minimality of $\gamma$. Hence $\gamma \subset \beta$, and $\gamma \subset \alpha$ by transitivity of $\alpha$. Say that $x \in C$ but $x \not\in \gamma$. Then as $x, \gamma \in \alpha$ by trichotomy we have $x = \gamma$ or $\gamma \in x$. If the former is true then $\gamma \in C \subset \beta$, which cannot be. If the latter is true then $\gamma \in x \in \beta$, which means $\gamma \in \beta$ by transitivity, which also cannot be. Hence there are no such $x$, and so $\gamma \subset \alpha \cap \beta$ and $\alpha \cap \beta \subset \gamma$, meaning $\gamma = C$, so $C \in \alpha$. By similar logic, we have $C \in \beta$, and so $C \in C$, which contradicts the axiom of regularity. Hence $C = \alpha$ or $C = \beta$, hence $\alpha \subset \beta$ or $\beta \subset \alpha$. Assume the former case WLOG. If $\alpha = \beta$ then we are done. So we assume that $\alpha \subsetneq \beta$. So we may choose the least element $m$ of $\beta - \alpha$. If $x \in m$, then by minimality we have $x \in alpha$. Conversely if $x \in alpha$ then if $x = m$ or $m \in x$ then by transitivity in the latter case we have that $m \in \alpha$, which cannot be. Hence by trichotomy we have $x \in m$. So we have $\alpha = m \in \beta$.
+
+	Finally we show the ordinals are closed under unions. Consider arbitrary $x \in y \in \cup X$, by the axiom of union we have  $t \in X$ such that $x \in y \in t$ which implies $x \in t$ as $t$ is an ordinal. So we have $x \in \cup X$, hence $\cup X$ is transitive. $\leq_\in$ satisfies antisymmetry over any set by regularity. Say $x \leq_\in y \leq_\in z \in \cup X$, again by the axiom of union we have $t \in \cup X$ such that $x \leq_\in y \leq_\in z \in t$, and so we have $x \leq_\in z$ as $t$ is an ordinal. Consider arbitary $x, y \in \cup X$, then by the axiom of union we have $t_1, t_2 \in X$ such that $x \in t_1$ and $y \in t_2$. $t_1$ and $t_2$ are ordinals, so we have one is a subset of the other. If $t_1 \subset t_2$ then $x, y \in t_2$ and so they are comparable by connexity, and similarly for $t_2 \subset t_1$. Hence $\leq_\in$ is a total ordering over $\cup X$. The must now be a well ordering as otherwise would imply an infinite sequence of inclusions, which contradicts the axiom of regularity. Hence $\cup X$ is an ordinal.
+ \end{proof}
+
+ \begin{thm} \label{thm:ordinals-canonical-well-ordering}
+	Every non-empty well-ordered set $X$ is order isomorphic to a unique ordinal. 
+ \end{thm}
+
+ \begin{proof}
+		 First we show uniqueness holds. Say ordinals $\alpha \neq \beta$ are order isomorphic, then by trichotomy of ordinals we may assume by symmetry that $\alpha \in \beta$. We have an order isomorphism $f: \beta \to \alpha$. From here we may construct the infinitely descending chain $\alpha, f(\alpha), f^2(\alpha), \ldots$, which contradicts the axiom of regularity. Hence if $\alpha$ and $\beta$ are ordinals and are order isomorphic to one another, then $\alpha = \beta$.
+
+		 Now we show existence. Define the initial segment $I_x = \{t \in X | t < x\}$ for any $x \in X$ and $W$ be the set of all $x \in X$ such that $I_x$ is order isomorphic to an ordinal. By the uniqueness we have already shown, we may call this ordinal $\gamma_x$ for any $x \in W$. Consider $x, y \in W$ with $x < y$. Let $h_x: I_x \to \gamma_x$ and $h_y: I_y \to \gamma_y$ be the corresponding order isomorphisms. We claim that $h_x$ and $h_y$ agree for all $t < x$ (or equivelently $t \in I_x$ ). Say this is not the case, then we have some $t < x$ such that $h_x(t) \neq h_y(t)$, we consider only the case when  $h_x(t) < h_y(t)$, as the other case uses similar logic. We have $t < h_x^{-1}h_y(t)$, which yields the infinite descending chain $t > (h_x^{-1}h_y)t > (h_x^{-1}h_y)^2t > \ldots$, which contradicts the well-ordering of $X$. Hence our claim that $h_x$ and $h_y$ agree on $I_x$ is indeed true.
+		 
+		 Let $A$ be the set of ordinals that correspond to each $I_x$ for $x \in W$, and $\alpha = \cup A$ (so \alpha is an ordinal). In light of the previous paragraph, we have $h = \bigcup_{x \in W} h_x$ is an order isomorphism from $W$ onto $\alpha$. Now say that $W \neq X$, then let $t$ be the least element of $X - W \neq \emptyset$. Consider the function $h': (W \cup \{t\}) \to S(\alpha)$ defined by extending $h$ with $h'(t) = \alpha$.  Trivially this function restricted to $I_t$ is an order isomorphism onto $S(\alpha)$, meaning $t \in W$, a contradiction. Hence $W = X$, so $h$ is actually an order isomorphism from $X$ to the ordinal $\alpha$, hence $X$ is order isomorphic to an ordinal, showing existence.
+ \end{proof}
+
+ Intuitively, the above theorem says that we may treat the ordinals as the canonical well-ordered sets, and in particular that every set that admits a well-ordering is equal in cardinality to an ordinal. The next result shows that under the axiom of choice, this actually encompasses all sets.
+
+ \begin{thm} [Well-Ordering Theorem] \label{thm:well-ordering}
+ 	Every set admits a well-ordered relation.
+ \end{thm}
+
+ \begin{proof}
+ 	TODO	
+ \end{proof}
+		
 \end{document}
 
