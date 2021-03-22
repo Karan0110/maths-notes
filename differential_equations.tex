@@ -1,0 +1,144 @@
+\documentclass[]{article}
+ 
+\input{header}
+ 
+\title{Differential Equations}
+\author{Karan Elangovan}
+ 
+\begin{document}
+ 
+\doublespacing
+\maketitle
+
+\section{First Order Equations}
+
+\subsection{Homogeneous Equations}
+
+A homogenous differential equation is one of the form
+
+\[
+		M(x,y) dx + N(x,y) dy = 0
+.\] 
+
+Where $M$ and $N$ are homogenous functions of equal degree. A trivial rearrangement yields 
+
+\[
+		\frac{dy}{dx} = f(x,y)
+.\] 
+
+Where $f$ is a homogenous function of degree $0$. This means that $f(x,y) = f(tx, ty)$, and in particular that $f(x,y) = f(1, \frac{y}{x})$. Letting $z = \frac{y}{x}$, we have $zx = y$, and implicitly differentiating we have $xdz + zdx = dy$, which gives $\frac{dy}{dx} = z + x \frac{dz}{dx}$. Applying these results to the above equation yields
+
+\[
+		z + x \frac{dz}{dx} = f(1,z)
+.\] 
+
+This is a separable equation.
+
+
+\begin{eg}
+		Solve $(x+y) dx - (x-y) dy = 0$.
+
+		We note that the $dx$ and $dy$ coefficients are homogenous of equal degree (degree 1), and so we may rearrange and apply the substitution $z = \frac{y}{x}$, to yield a separable equation.
+
+		\begin{align*}
+				x \frac{dz}{dx} + z = \frac{1+z}{1-z} \\
+				\frac{1-z}{1+z^2} dz = \frac{1}{x} dx \\
+				\log x = \arctan z - \log \sqrt{1+z^2} + C \\
+				\arctan \frac{y}{x} = \log \sqrt{x^2 + y^2} + C
+		\end{align*}
+\end{eg}
+
+\subsection{Exact Equations}
+
+We say a differential equation is exact if it is of the form 
+
+\[
+		\frac{\partial f}{\partial x} dx + \frac{\partial f}{\partial y} dy = 0
+.\] 
+
+In this case the equation may be re-written as $df = 0$, meaning the solution is $f(x,y) = C$, for some constant $C$. However in general it may not be apparent from inspection that an equation of the form $M dx + N dy = 0$ is exact. It may be trivially shown that the equation is exact iff $\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}$.
+
+\begin{eg}
+		Solve $(\sin x \tan y + 1) dx - (\cos x \sec^2 y) dy = 0$.
+
+	\begin{align*}
+		\frac{\partial M}{\partial y} = \sin x \sec^2 y
+		\frac{\partial N}{\partial x} = \sin x \sec^2 y
+	\end{align*}
+
+	Hence the equation is exact, so we have there is a function $f$ such that the LHS is $df$.
+
+	\begin{align*}
+			\frac{\partial f}{\partial x} = \sin x \tan y + 1 \\
+			f = \int (\sin x \tan y + 1) dx \\
+			= -\tan y \cos x + x + g(y)
+	\end{align*}
+
+	Differentiating with respect to $y$ 
+
+	\begin{align*}
+			-\cos x \sec^2 y = -\cos x \sec^2 y + g'(y)
+			g'(y) = 0
+			g(y) = C
+	\end{align*}
+
+	Hence we have
+
+	\begin{align*}
+			f = x - \tan y \cos x + C
+	\end{align*}
+
+	So the solution to the equation is 
+
+	\begin{align*}
+			\tan y \cos x - x = C
+	\end{align*}
+
+\end{eg}
+ 
+\section{Miscellaneous}
+
+\subsection{Motion of a Pendulum}
+
+\begin{figure}[ht]
+    \centering
+    \incfig{pendulum}
+    \caption{}
+    \label{fig:pendulum}
+\end{figure}
+
+We model a pendulum as a light rod of length $l$ with one end fixed and to the other attatched a particle of mass $m$ that is released from rest at an angle $\alpha$ from the vertical.
+
+We may obtain a differential equation for its motion in terms of its angle $\theta$ from the vertical by using that the sum of the particles kinetic and gravitational potential energy is constant.
+
+\[
+		\frac{1}{2} m (l\dot{\theta})^2 + mgl(1 - \cos{\theta}) = mgl(1 - \cos\alpha)
+.\] 
+
+Rearranging and considering the descent of the pendulum to its minimum point yields
+
+\[
+		dt = -\sqrt \frac{l}{2g} \frac{d\theta}{\sqrt{cos\theta - cos\alpha}}
+.\] 
+
+We now integrate from $t=0$ to the minimum point of the pendulum
+
+\[
+		\frac{T}{4} = \sqrt \frac{l}{2g} \int_{0}^\alpha \frac{d\theta}{\sqrt{\cos\theta - \cos\alpha}} 
+.\] 
+
+We now begin a series of manipulations with the aim of transforming this into a relatively simple expression of an elliptic integral of the first kind. Applying the double angle formula
+
+\[
+		\frac{T}{4} = \sqrt \frac{l}{2g} \int_0^\alpha \frac{d\theta}{\sqrt{2} \sqrt{\sin^2 \frac{\alpha}{2} - sin^2 \frac{\theta}{2}}}
+.\] 
+
+Let $k = \sin \frac{\alpha}{2}$. Now we make the substitution $\sin \frac{\theta}{2} = k\sin\phi$. So $\frac{1}{2} \cos \frac{\theta}{2} d\theta = k \cos\phi d\phi$, which written in terms of $d\theta$ yields $d\theta = \frac{2k\cos\phi}{\sqrt{1 - k^2sin^2\phi}}$. So we have the time period of the pendulum as 
+
+\[
+		T = 4 \sqrt \frac{l}{g} F\left(\sin \frac{\alpha}{2}, \frac{\pi}{2}\right)
+.\]
+
+where $F(k, \phi)$ denotes the elliptic integral of the first kind.
+ 
+\end{document}
