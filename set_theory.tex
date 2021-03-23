@@ -353,11 +353,19 @@ The function $f: X \to \mathcal{P}(X)$ defined by $f(x) = \{x\}$ is an injection
  Intuitively, the above theorem says that we may treat the ordinals as the canonical well-ordered sets, and in particular that every set that admits a well-ordering is equal in cardinality to an ordinal. The next result shows that under the axiom of choice, this actually encompasses all sets.
 
  \begin{thm} [Well-Ordering Theorem] \label{thm:well-ordering}
- 	Every set admits a well-ordered relation.
+ 	Every set, $X$, admits a well-ordered relation.
  \end{thm}
 
  \begin{proof}
- 	TODO	
+		 By the axiom of choice we have the existence of a function $k: \mathcal{P}(X) - \{\emptyset\} \to X$, and so we may define for every proper subset  $t$ of $X$, $x_t = k(X - t)$. Intuitively $x_t$ chooses an element of $X$ not in $t$.
+
+		 We say that if for some ordinal $\alpha$, $f: \alpha \to X$ is an injection such that for all  $\beta < \alpha$ we have $f(\beta) = x_{f[\beta]}$, where $f[M]$ denotes the range of $f$ over the set $M$ (this set exists by the axiom of replacement, as we know that $f$ has range $X$), then $f$ is a "$\gamma$ function".
+
+		 The key motivation for our strange criteria is that this guarantees that any two $\gamma$ functions $f: \alpha_1 \to X$ and $g: \alpha_2 \to X$ cohere on the intersection of their domains. Say this is not the case, then as  $\beta_1$ and $\beta_2$ are ordinals, we may choose the least $\beta \in \beta_1 \cap \beta_2$ such that $f(\beta) \neq g(\beta)$, which implies $x_{f[\beta]} \neq x_{g[\beta]}$, however this cannot be as $f$ and $g$ must cohere for all ordinals below $\beta$ by minimality of $\beta$. Hence $f$ and $g$ cohere as we claimed.
+
+		 This coherence property, alongside the class of ordinals being totally ordered by the $\subset$ relation means that for any given subset $Y \subset X$, if there is a $\gamma$ function with image $Y$, then this function is unique. This, alongside the power set axiom allows us to construct the set of all $\gamma$ functions, $\Gamma$.
+
+		 The coherence property, alongside injectivity means that  $h = \cup \Gamma$ is an injective function from some ordinal, $\theta$, (the union of a set of ordinals is an ordinal) to $X$. It is also trivial that $h$ is actually a $\gamma$ function. Indeed we claim that $h$ is also a surjective. Say this is not the case, then $h$ is non-surjective, and so $h[\theta]$ is a proper subset of $X$, and hence $x = x_{h[\theta]}$ exists. We define $h': S(\theta) \to X$ as equal to $h$ on $\theta$ and $h'(\theta) = x$. This satisfies $h'(\beta) = x_{h'[\beta]}$ trivially, and is also injective as by the construction of $x_t$, $x$ does not belong to $h[\theta]$, hence  $h'$ is a $\gamma$ function, which means $h' \subset h$, which is not the case. Hence $h$ is a bijection from a set of ordinals onto $X$. The class of ordinals is well ordered under $\leq_\in$, and so we have $X$ is well-ordered by the ordering induced by $h$.
  \end{proof}
 		
 \end{document}
