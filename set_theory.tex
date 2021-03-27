@@ -238,7 +238,7 @@ An extremely useful consequence of the AC is Zorn's Lemma. It is actually equiva
 	Hence $P$ has a maximal element.
 \end{proof}
 
-\subsection{Construction of the Naturals, Integers and Rationals}
+\subsection{Construction of the Naturals}
 
 	The axiom of infinity guarantees us the existence of an "infinite" set, however this gives us no information as to what kind of infinite set this would be. But a little manipulation allows us to construct a set that will satisfy the Peano axioms of arithmetic.
 
@@ -274,7 +274,7 @@ An extremely useful consequence of the AC is Zorn's Lemma. It is actually equiva
 			If $W$ is an inductive subset of $\mathbb{N}$, then $\mathbb{N} \subset W$ as $\mathbb{N}$ is the intersection of all inductive subets of $Z$. Hence $W = \mathbb{N}$	
 	\end{proof}
 
-	From here we may proceed to inductively define addition, subtraction and multiplication. Then we may define the integers and rationals as a pair of a "sign" (any of 2 distinct sets) and a natural, and as pairs of integers with the second non-zero respectively. We omit these definitions as they are trivial and time-consuming.
+	From here we may proceed to inductively define addition, subtraction and multiplication. Then we may define the integers and rationals as a pair of a "sign" (any of 2 distinct sets) and a natural, and as pairs of integers with the second non-zero respectively. Reals may then be defined using Dedekind cuts and complexes as orderd pairs of reals. We omit these definitions as they are trivial and time-consuming.
 
 \section{Ordinals and Cardinals}
 
@@ -367,6 +367,30 @@ The function $f: X \to \mathcal{P}(X)$ defined by $f(x) = \{x\}$ is an injection
 
 		 The coherence property, alongside injectivity means that  $h = \cup \Gamma$ is an injective function from some ordinal, $\theta$, (the union of a set of ordinals is an ordinal) to $X$. It is also trivial that $h$ is actually a $\gamma$ function. Indeed we claim that $h$ is also a surjective. Say this is not the case, then $h$ is non-surjective, and so $h[\theta]$ is a proper subset of $X$, and hence $x = x_{h[\theta]}$ exists. We define $h': S(\theta) \to X$ as equal to $h$ on $\theta$ and $h'(\theta) = x$. This satisfies $h'(\beta) = x_{h'[\beta]}$ trivially, and is also injective as by the construction of $x_t$, $x$ does not belong to $h[\theta]$, hence  $h'$ is a $\gamma$ function, which means $h' \subset h$, which is not the case. Hence $h$ is a bijection from a set of ordinals onto $X$. The class of ordinals is well ordered under $\leq_\in$, and so we have $X$ is well-ordered by the ordering induced by $h$.
  \end{proof}
+
+ Whilst we have the existence of a well-ordering for any set, this says nothing as to how pathological and convoluted this well-ordering may be. $\N$ is actually well-ordered by the usual order relation. However for a set such as $\R$, the well ordering has no reason to take any useful form. So in the general case the key application of the Well-Ordering theorem is that it shows the ordinals suffice to measure the cardinality of any set.
+
+ \begin{thm}
+ 		For any set $X$, there is a unique least ordinal $\alpha$ of equal cardinality to $X$.
+ \end{thm}
+
+ \begin{proof}
+		 By the Well-Ordering theorem we have that $X$ may be well-ordered. And so by ~\ref{thm:ordinals-canonical-well-ordering} $X \sim \alpha$, for some ordinal $\alpha$. Let $A = \{\beta \leq \alpha | \beta \sim X\}$, then as $\alpha \in A$, so $A \neq \emptyset$, and the class of ordinals are well-ordered by inclusion, hence we may choose the least element $\beta$ of $A$. Say $\gamma \sim X$, then if $\gamma \leq \alpha$, then $\gamma \in A$ and so $\beta \leq \gamma$ by the minimality of $\beta$, otherwise $\gamma > \alpha \geq \beta$, yielding $\gamma \geq \beta$. Hence we have that $\beta$ is minimal amongst all ordinals equinumerous to $X$. 
+
+		 If $\beta_1$ and $\beta_2$ are least equinumerous ordinals then $\beta_1 \leq \beta_2$ and $\beta_2 \leq \beta_1$, which implies $\beta_1 = \beta_2$, hence the ordinal is unique.
+ \end{proof}
+
+ In light of this result we may now make the following definitions.
+
+ \begin{defi} [Cardinality]
+ 		The cardinality $|X|$ of $X$ is the unique least ordinal equinumerous to $X$.
+ \end{defi}
+
+ \begin{defi} [Cardinal]
+ 		A cardinal is a set $X$ which is its own cardinality.	
+ \end{defi}
+
+ Whilst we have spoken of sets having the same cardinality, now we actually have a definition of cardinality that makes sense for an induvidual set. Whilst the ordinals suffice to measure the cardinality of any set, they are not unique in this respect (except for the finite case), intuitively speaking as they also embody the structure of order (whilst they are not unique up to bijections, they are unique up to an order isomorphism), which is superflous when only considering cardinality. 
 		
 \end{document}
 

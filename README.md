@@ -8,3 +8,5 @@ The latex files need to be complied alongside header.tex
 
 [Differential Equations](differential_equations.pdf)
 
+[Linear Algebra](linear_algebra.pdf)
+

@@ -1,0 +1,283 @@
+\documentclass[]{article}
+
+\input{header}
+
+\title{Linear Algebra}
+\author{Karan Elangovan}
+
+\begin{document}
+
+\maketitle
+
+\doublespacing
+\tableofcontents
+
+\section{Vector Spaces}
+
+\subsection{Vector Space Axioms}
+
+\begin{defi} [Vector Space]
+		A vector space over a field $k$ is an ordered triple $(V, +, f)$, with $+: V^2 \to V$ and $f: k \times V \to V$ satisfying 
+		\begin{enumerate}
+				\item $(V, +)$ is an abelian group
+				\item $1_kv = v$ for all $v \in V$
+				\item  $a (b v) = (a b) v$ for all $a, b \in k$ and $v in \in V$
+				\item  $(a + b)v = a v + b v$ for all $a, b \in k$ and $v in \in V$
+				\item $ a(v_1 + v_2) = a v_1 + \ v_2$ for all $a \in k$ and $v_1, v_2 \in V$
+		\end{enumerate}
+		Where we use adjacency to denote $f$.
+
+		We call the elements of $V$ vectors, the elements of $k$ scalars and $f$ scalar multiplication.
+\end{defi}
+
+\begin{defi} [Subspace]
+		A subspace of a vector space $V$ over $k$ is a subset $U \subset V$ which is also a vector space over $k$ under the induced operations of addition and scalar multiplication.
+\end{defi}
+
+\subsection{Linear Independence, Spanning Sets and Bases}
+
+\begin{defi} [Linear Combination]
+		Let $\mathcal{V} = \{v_1, v_2, \ldots, v_n\}$ be a finite\footnote{\label{infinite-linear-combinations} The definition may be extended for sets of infinite cardinality as well, with the restriction that all but finitely many of the choices made by $f$ are $0$, allowing us to sidestep issues of infinite sums. However most useful applications and results are with regards to the finite case, so we restrict our definitions and study to this case.} set of vectors in $V$. Then we define a linear combination of $\mathcal{V}$ as a function $f: \mathcal{V} \to k$. To each linear combination corresponds a vector $f(v_1) v_1 + f(v_2) v_2 + \ldots + f(v_n) v_n$ as a linear combination. Whether we are speaking of the actual vector corresponding to a linear combination or the choice of scalars is usually easily inferred from context.
+\end{defi}
+
+\begin{defi} [Span]
+		We define the span of a finite set of vectors $\mathcal{V}$ as the set of all of its linear combinations. If the span is $V$ then we say $\mathcal{V}$ is a spanning set.
+\end{defi}
+
+\begin{thm} \label{thm:equiv-lin-ind}
+		Let $\mathcal{V}$ be a finite set of vectors. Then the following are all equivalent
+		\begin{enumerate}
+				\item The only linear combination of $\mathcal{V}$ equal to $0$ has all of its scalars equal to $0$.
+				\item For every $v$ in the span of $\mathcal{V}$, the choice of scalars is unique.
+				\item For every $v \in \mathcal{V}$, $v$ is not in the span of the remaining vectors in $\mathcal{V}$.
+		\end{enumerate}
+\end{thm}
+
+\begin{proof}
+		(2) is a stronger form of (1), hence (2) implies (1). Now assume (1). Say two linear combinations $a_1 v_1 + a_2 v_2 + \ldots + a_n v_n$ and $b_1 v_1 + b_2 v_2 + \ldots + b_n v_n$ are both equal to $v$, then we have $(a_1 - b_1) v_1 + (a_2 - b_2) v_2 + \ldots + (a_n - b_n) v_n = 0$, which by (1) yields $(a_i - b_i) = 0$, giving $a_i = b_i$, hence the choice of scalars is unique, and so (1) implies (2).
+
+		Now assume (1). Say (3) is not true, then we may assume WLOG by re-indexing that $v_n = a_1 v_1 + a_2 v_2 + \ldots a_{n-1} v_{n-1}$, yielding a non-trivial linear combination that is $0$, contradicting (1), hence (1) implies (3). Now assume (3), and say that (1) is not true. Then we have $a_1 v_1 + a_2 v_2 + \ldots + a_n v_n = 0$ with some $a_i \neq 0$. So we may rearrange to yield $a_i = (-\frac{a_1}{a_i}) v_1 + \ldots + (-\frac{a_{i-1}}{a_i}) v_{i-1} + (-\frac{a_{i+1}}{a_i}) v_{i+1} + \ldots + (-\frac{a_n}{a_i}) v_n$, contradicting (3). Hence (3) implies (1).
+\end{proof}
+
+\begin{defi} [Linear Independence]
+		We say a finite set of vectors $\mathcal{V}$ is linearly independent iff it satisfies any of the equivalent conditions in theorem ~\ref{thm:equiv-lin-ind}.
+\end{defi}
+
+\begin{thm}
+	The cardinality of any linearly independent set cannot exceed the cardinality of any spanning set.
+\end{thm}
+
+\begin{proof}
+		Let $\mathcal{W} = \{w_1, w_2, \ldots w_m\}$ be an arbitrary linearly independent set and $\mathcal{V} = \{v_1, v_2 \ldots, v_n\}$ an arbitrary spanning set.
+		
+		As $\mathcal{V}$ is spanning, $w_1$ belongs to its span. We claim that we may we may replace $m$ of the $v_i$ with distinct elements of $\mathcal{W}$ to yield a spanning set. We proceed by induction. Assume that the set 
+		\[
+		S = \{w_1, w_2, \ldots w_j, u_1, u_2, \ldots u_{n-j}\}
+		.\] 
+		where $j < m$ and $u_i$ are distinct elements of $\mathcal{V}$ is spanning. Then $w_{j+1}$ must belong to the span of $S$. If $w_{j+1} \in S$, then it must equal one of the $u_i$, and so we may replace that $u_i$ with $w_{j+1}$. Otherwise consider 
+		\[
+		S' = \{w_{j+1}, w_1, w_2, \ldots, w_j, u_1, u_2, \ldots u_{n-j}\} 
+		.\] 
+		which must be linearly dependent as $w_{j+1}$ belongs to the span of the remaining vectors. We know that $\{w_{j+1}, w_1, w_2, \ldots w_j\}$ is linearly independent, and so if we keep adding $u_i$ we eventually reach the first $u_i$ in the span of 
+		\[
+		\{w_{j+1}, w_1, w_2, \ldots w_j, u_1, u_2, \ldots u_{i-1}\}
+		.\] 
+	which we know exists as otherwise $S'$ would be linearly independent. Hence we may discard this $u_i$ to leave the desired spanning set. The base case follows from $\mathcal{V}$ being spanning. Hence we have an injection from $\mathcal{W} \to \mathcal{V}$ by which $v \in \mathcal{V}$ is replaced by $w \in \mathcal{W}$ in the construction. Hence $|\mathcal{W}| \leq |\mathcal{V}|$.
+\end{proof}
+
+As a trivial consequence of this, we have that any two bases have the same cardinality as their cardinalities bound eachother above and below as a basis is simultaeneously a spanning set and a linearly independent set. So we may call this invariant quantity the "dimension" of the vector space. However there is a caveat, namely that this assumes that there is a basis at all. When we extend our defintions to inlcude the idea of a linear combination of an infinite set as mentioned in footnote ~\ref{infinite-linear-combinations} it may be shown that every vector space has a basis (this is a trivial consequence of Zorn's lemma when we view a basis as a maximal linearly independent set)
+
+\begin{defi} [Finite-Dimensional Vector Spaces]
+		The vector space $V$ is finite dimensional iff it has a basis.
+		If $V$ is finite dimensional, then we call the common cardinality of all of its bases the dimension of $V$, $\dim V$.
+\end{defi}
+
+\section{Linear Maps}
+
+\subsection{Definitions}
+
+The structure of a vector space is given by the operations of addition and scalar multiplication, so those maps between vector spaces which preserve this structure will be of interest. In the context of linear algebra, we call a homomorphism a linear map.
+
+\begin{defi} [Linear Map]
+		Let $V$ and $W$ be $k$-vector spaces. The function $T: V \to W$ is a linear map iff it satisfies
+		\begin{enumerate}
+				\item $T(u + v) = T(u) + T(v)$ for all $u, v \in V$.
+				\item $T(\lambda v) = \lambda T(v)$ for all $\lambda \in k$ and $v \in V$.
+		\end{enumerate}
+
+		We denote the set of all linear maps from $V$ to $W$ by $\mathcal{L}(V,W)$.
+\end{defi}
+
+\begin{thm}
+		Let $\mathcal{V} = \{v_1, v_2, \ldots v_n\}$ be a basis of $V$. Then for any choice of $w_1, w_2, \ldots w_n \in W$, there is a unique linear map $T \in \mathcal{L}(V,W)$ that maps each $v_i$ to $w_i$.
+\end{thm}
+
+\begin{proof}
+		Consider the mapping from $V \to W$ defined by
+		\[
+		T(a_1 v_1 + a_2 v_2 + \ldots + a_n v_n) = a_1 w_1 + a_2 w_2 + \ldots + a_n w_n
+		.\] 
+
+		This is well-defined as $\mathcal{V}$ is a basis and hence each vector has a unique representation as a linear combination. Homogeneity and additivity are trivially verifiable. Hence there does exist such a map. The uniqueness follows from expressing each vector as a linear combination of $\mathcal{V}$, from which the requirements of a linear map and our hypothesis leave only one possibile choice for the image.
+\end{proof}
+
+A trivial but noteworthy corrolary is that if $V$ and $W$ are finite-dimensional and of equal dimension they must have a bijective linear map bewteen them, meaning they are isomorphic. This means that for finite dimensional vector spaces, the dimension totally determines the structure. So we may treat $k^n$ as the canonical vector space of dimension $n$.
+
+\begin{defi} [Kernel]
+		Let $T \in \mathcal{L}(V,W)$ be a linear map. Then the kernel of $T$, $\ker T$ is the pre-image of $0$.
+\end{defi}
+
+Similarly to group homomorphisms, the kernel of a linear map is a subspace, and the triviality of the kernel is equivalent to injectivity, and there is also as one would expect an analogue to the isomorphism theorem for groups which we will be able to state and prove once having defined the notion of the quotient of a vector space and its subspace.
+
+\subsection{Quotient Spaces}
+
+Consider a vector space $V$ and a subspace $U$. We wish to define a vector space $V / U$ that is conceptually the vector space $V$, but in which we consider vectors which differ only by some vector in $U$ as identical. More precisely $V / U$ is the set of equivalence classes under the equivalence relation $v \sim u \iff (v-u) \in U$, with addition and scalar multiplication defined on coset representatives. These operations may be shown to be well-defined and to yield a vector space, we omit the proofs as they are essentially identical in logic to showing the cosets of a normal subgroup form a group.
+
+		\begin{defi} [Quotient Space]
+				The quotient space $V / U$ is the set of cosets of $U$ in $V$, with the operations of addition and scalar multiplication defined on coset representatives.
+		\end{defi}
+
+\begin{thm} [Fundemental Theorem of Linear Maps]
+		Let $T \in \mathcal{L}(V,W)$ be a surjective linear map. Then $V / \ker T \cong W$.
+\end{thm}
+
+\begin{proof}
+		We define the map $T': V / \ker T \to W$ by
+		\[
+				T'(\ker T + v) = T(v)
+		.\] 
+
+		$T'$ is well-defined as no matter which coset representative we choose, their difference will be in the kernel of $T$, and so will have no effect on the image by the additivity of $T$. $T'$ is also clearly linear as $T$ is. If $\ker T + v \in \ker (T')$, then $T(v) = 0$, and so $\ker v + v = \ker v + 0$, hence the kernel of $T'$ is trivial and so $T'$ is injective. The surjectivity of $T'$ follows from the surjectivity of $T$. Hence $V / \ker T$ and $W$ are isomorphic by $T'$.
+\end{proof}
+
+\begin{thm}
+		Let $V$ be finite-dimensional, and $U$ a subspace of $V$. Then $\dim (V / U) = \dim V - \dim U$.
+\end{thm}
+
+\begin{proof}
+		Let $u_1, u_2, \ldots, u_n$ be a basis of $U$. Let us extend it into a basis for $V$ to $u_1, u_2, \ldots, u_n, v_1, v_2, \ldots, v_m$.	Hence $\dim(V) - \dim(U) = (n + m) - (n) = m$. 
+
+		We claim that $\mathcal{V} = \{U + v_1, U + v_2, \ldots U + v_m\}$ is a basis of $V / U$. 
+
+		\begin{align*}
+			\{U + u_1, U + u_2, \ldots, U + u_n, U + v_1, U + v_2, \ldots U + v_m\} \\
+			= \{U + 0, U + v_1, U + v_2, \ldots, U + v_m\}	
+		\end{align*}
+
+		spans $V / U$, and hence so does $\mathcal{V}$, as the $0$ vector doesn't affect the span. Say we have a $0$ linear combination of $\mathcal{V}$, $a_1 (U + v_1) + a_2 (U + v_2) + \ldots + a_m (U + v_m) = 0$, so we have $a_1 v_1 + a_2 v_2 + \ldots + a_m v_m \in U$, so we have $b_1, b_2, \ldots b_n \in k$ such that $a_1 v_1 + \ldots + a_m v_m = b_1 u_1 + \ldots + b_m u_m$ as $\{u_1, \ldots, u_m\}$ spans $U$. Hence by the linear independence of the entire basis of $V$, we have $a_1 = \ldots = a_m = b_1 = \ldots = b_n = 0$. Hence there are no non-trivial $0$ linear combinations of $\mathcal{V}$. Hence $\mathcal{V}$ is a basis as we claimed, and so $\dim (V / U) = m = \dim(V) - \dim(U)$.
+\end{proof}
+
+\subsection{Matrices}
+
+As we have established, a linear map $T \in \mathcal{L}(V,W)$ is uniquely identified by where it maps any given basis $\mathcal{V}$ of $V$, and to every possible choice of images of $\mathcal{V}$ there corresponds a linear map. This motivates us to define a matrix as a way to represent linear maps.
+
+\begin{defi} [Matrix]
+		Let $T \in \mathcal{L}(V,W)$, and $\mathcal{V} = \{v_1, v_2, \ldots, v_n\}$ and $\mathcal{W} = \{w_1, w_2, \ldots, w_m\}$ be bases of $V$ and $W$, respectively. Then we define the matrix of $T$ with respect to $\mathcal{V}$ and $\mathcal{W}$, $\mathcal{M}(T,  \mathcal{V}, \mathcal{W})$ as an array with $m$ rows and $n$ columns, such that column $j$ gives the scalars of the linear combination of $\mathcal{W}$ which corresponds to $T(v_j)$.
+
+		We define addition, multiplication (when the corresponding linear maps are composable) and scalar multiplication  on matrices such that the resulting matrix corresponds to the resulting linear map when the corresponding linear maps of the original matrices are combined. Symbolically, $\mathcal{M}(S) + \mathcal{M}(T) = \mathcal{M}(T+S)$, $\lambda \mathcal{M}(T) = \mathcal{M}(\lambda T)$, and $\mathcal{M}(S) \mathcal{M}(T) = \mathcal{M}(S \circ T)$.
+\end{defi}
+
+\subsection{Operators}
+
+We consider the special case of linear maps whose domain and range are identical, that is, the endomorphisms of a vector space. The primary characteristic that leads to their richer theory is that any operator may be composed with itself, so we may consider powers of an operator, and hence polynomials of an operator.
+
+\begin{defi} [Operator]
+		An operator is a linear map whose domain is the same as its range. We denote the operators of $V$ as $\mathcal{L}(V)$.
+\end{defi}
+
+\begin{thm}
+		For an operator $T$ on a finite-dimensional space $V$, injectivity is equivalent to surjectivity.
+\end{thm}
+
+\begin{proof}
+		Let $V$ have dimension $n$. We have by the fundemental theorem of linear maps, $V / \ker T \cong \range T$. 
+
+		First assume that $T$ is injective, then the kernel is trivial and hence we have $V \cong \range T$, and so $\dim \range T = n$, and as $\range T$ is a subspace of $V$, we have that $\range T = V$, meaning $T$ is surjective. 
+
+		Now assume that $T$ is surjective, then we have $V / \ker T \cong V$, and so $\dim \ker T = 0$, hence the kernel is trivial and so $T$ is injective.
+\end{proof}
+
+\section{Eigenvalues and Eigenvectors}
+
+\subsection{Invariant Subspaces}
+
+We may better better understand an operator on $V$ by instead considering how it acts on each subspace in some direct sum decomposition of $V = U_1 \oplus \ldots \oplus U_n$. However $T$ restricted to $U_i$, $T|_{U_i}$ may not be an operator. It is only an operator when it maps the subspace into itself. This motivates our definition of invariant subspaces.
+
+\begin{defi} [Invariant Subspace]
+		We call the subspace $U$ invariant under $T \in \mathcal{L}(V)$ iff $T(U) \subset U$, or equivalently $T|_U$ is an operator.
+\end{defi}
+
+The simplest case is when the subspace has dimension $1$, in which case it is the span of some non-zero vector $v$, and so it must be the case that $T(v) = \lambda v$ for some $\lambda \in k$. When this is the case we call $v$ an eigenvector and $\lambda$ its corresponding eigenvalue. Whilst every eigenvector may of course only correspond to a single eigenvalue, the converse does not hold, indeed the eigenvectors of a specfic eigenvalue (which, alongside $0$, trivially form a subspace) need not even have dimension $1$.
+
+\begin{defi}
+		Let $T \in \mathcal{V}$. Then $\lambda \in k$ is an eigenvalue iff any of the following equivalent criteria hold
+		\begin{enumerate}
+				\item We have some non-zero $v \in V$ such that $T(v) = \lambda v$ 
+				\item $T - \lambda I$ is not injective.
+		\end{enumerate}
+
+		For any $\lambda \in k$, we define the eigenspace $E(\lambda, T)$ as the kernel of $T - \lambda I$. 
+\end{defi}
+
+\begin{thm}
+		If $v_1, v_2, \ldots, v_n$ are eigenvectors with distinct corresponding eigenvalues, then $\mathcal{V} = \{v_1, v_2, \ldots, v_n\}$ is linearly independent.
+\end{thm}
+
+\begin{proof}
+		Assume the contrary, and so we have some $j$ such that $\{v_1, v_2, \ldots, v_j\}$ is linearly independent and $\{v_1, v_2, \ldots, v_{j+1}\}$ is linearly dependent. Hence we have for some choice of $a_1, a_2, \ldots, a_j \in k$ that $v_{j+1} = a_1 v_1 + a_2 v_2 + \ldots + a_j v_j$. We have by scalar multiplication by $\lambda_{j+1}$ and by application of $T$ that
+		\begin{align*}
+				\lambda_{j+1} v_{j+1} = \lambda_{j+1} a_1 v_1 + \lambda_{j+1} a_2 v_2 + \ldots + \lambda_{j+1} a_j v_j \\
+				\lambda_{j+1} v_{j+1} = \lambda_1 a_1 v_1 + \lambda_2 a_2 v_2 + \ldots + \lambda_j a_j v_j
+		\end{align*}
+
+		Hence we have 
+		\begin{align*}
+				a_1 (\lambda_{j+1} - \lambda_1) v_1 + a_2 (\lambda_{j+1} - \lambda_2) v_2 + \ldots + a_j (\lambda_{j+1} - \lambda_j) v_j = 0
+		\end{align*}
+
+		The eigenvalues are all pairwise distinct, and hence by the linear independence of $\{v_1, v_2, \ldots, v_j\}$ we have that $a_1 = a_2 = \ldots = a_j = 0$. However this gives $v_{j+1} = 0$, which cannot be. Hence $\mathcal{V}$ is linearly independent. 
+\end{proof}
+
+As these eigenvalues are helpful in understanding the behaviour of an operator, we should ask for which operators there even exists an eigenvalue. In the most general case, if the operator is non-injective, then $0$ will be an eigenvalue. Otherwise we restrict our attention to finite dimensional $\R$ and $\C$ vector spaces. An arbitrary operator on a finite dimensional $\R$ vector space need not have any eigenvalues (for example an order $4$ turn about the origin), however as the next theorem shows, the answer is in the affirmative for finite dimensional $\C$ vector spaces.
+
+\begin{thm}
+		Let $T$ be an operator over a finite dimensional, non-trivial, $\C$ vector space, $V$. Then $T$ has an eigenvalue.
+\end{thm}
+
+\begin{proof}
+		Let $\dim V = n$. Choose an arbitrary non-zero $v \in V$. Then $\mathcal{V} = \{v, T(v), \ldots, T^{n}(v)\}$ is linearly dependent, so we have some non-trivial zero linear combination of $\mathcal{V}$. Let the scalars be $a_0, a_1, \ldots a_n$ and $j$ be the last non-zero index. $j$ must exist as the combination is non-trivial, and $j \geq 1$, else we'd have that $v = 0$. So we have
+		\begin{align*}
+				(a_0 I + a_1 T + a_2 T^2 + \ldots + a_j T^j) v = 0
+		\end{align*}
+
+		$j \geq 1$, hence by the Fundemental Theorem of Algebra, we may factorise the polynomial into a product of linear factors.
+
+		\begin{align*}
+				(T - \lambda_1 I) (T - \lambda_2 I) \ldots (T - \lambda_j I) v = 0
+		\end{align*}
+
+		Hence not all of the linear factors may be bijective, and so at least one, $(T - \lambda_j I)$, is non-injective, injectivity is equivalent to bijectivity over finite dimensional vector spaces. This means that $\lambda_j$ is the desired eigenvalue.
+\end{proof}
+
+\subsection{Upper Triangular Matrices}
+
+\begin{defi} [Upper Triangular Matrix]
+		We say a square matrix is upper triangular iff all entries under the diagonal are $0$.
+\end{defi}
+
+If we consider an operator $T \in \mathcal{L}(V)$, we may express the condition of upper-triangularity of $\mathcal{M}(T, \mathcal{V})$ in terms of the operator. Say $\mathcal{V} = \{v_1, v_2, \ldots, v_n\}$, then it is trivial to see that upper triangularity is equivalent to each $T(v_j)$ belonging to the span of $\{v_1, v_2, \ldots, v_j\}$.
+
+\begin{thm}
+		Let $T$ be an operator over a finite-dimensional $\C$ vector space. Then there exists a basis $\mathcal{V}$ such that $\mathcal{M}(T, \mathcal{V})$ is upper-triangular.
+\end{thm}
+
+\begin{proof}
+		Assume by induction that we have a linearly independent set $\mathcal{V} = \{v_1, v_2, \ldots, v_j\}$ such that each $T(v_i) \in \vspan\{v_1, v_2, \ldots, v_i\}$, with $j < n$. 
+
+		Let $U = \span \mathcal{V}$. So $V / U$ is a non-trivial $\C$ vector space, and $U$ is an invariant subspace under $T$. So we have an eigenvector $U + v_{j+1}$ of the operator $T / U$, so $(T / U)(U + v_{j+1}) = U + \lambda v_{j+1}$. 
+
+		So if we let $v_{j+1}$ be a coset representative of $U + v_{j+1}$ then we have $T(v_{j+1}) = a_1 v_1 + a_2 v_2 + \ldots a_j v_j + \lambda v_{j+1} \in \vspan\{v_1, v_2, \ldots v_{j+1}\}$ and so we have $\mathcal{V} \cup \{v_{j+1}\}$ as a set of $j + 1$ vectors that satisfies the property. So by induction we have the desired basis.
+\end{proof}
+
+\end{document}
+
