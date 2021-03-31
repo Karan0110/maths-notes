@@ -106,6 +106,8 @@ The structure of a vector space is given by the operations of addition and scala
 		\end{enumerate}
 
 		We denote the set of all linear maps from $V$ to $W$ by $\mathcal{L}(V,W)$.
+
+		We call linear maps whose range is $k$ itself treated as a vector space linear functionals.
 \end{defi}
 
 \begin{thm}
@@ -190,9 +192,9 @@ We consider the special case of linear maps whose domain and range are identical
 \end{thm}
 
 \begin{proof}
-		Let $V$ have dimension $n$. We have by the fundemental theorem of linear maps, $V / \ker T \cong \range T$. 
+		Let $V$ have dimension $n$. We have by the fundemental theorem of linear maps, $V / \ker T \cong T(V)$. 
 
-		First assume that $T$ is injective, then the kernel is trivial and hence we have $V \cong \range T$, and so $\dim \range T = n$, and as $\range T$ is a subspace of $V$, we have that $\range T = V$, meaning $T$ is surjective. 
+		First assume that $T$ is injective, then the kernel is trivial and hence we have $V \cong T(V)$, and so $\dim T(V) = n$, and as $T(V)$ is a subspace of $V$, we have that $T(V) = V$, meaning $T$ is surjective. 
 
 		Now assume that $T$ is surjective, then we have $V / \ker T \cong V$, and so $\dim \ker T = 0$, hence the kernel is trivial and so $T$ is injective.
 \end{proof}
@@ -274,9 +276,650 @@ If we consider an operator $T \in \mathcal{L}(V)$, we may express the condition 
 \begin{proof}
 		Assume by induction that we have a linearly independent set $\mathcal{V} = \{v_1, v_2, \ldots, v_j\}$ such that each $T(v_i) \in \vspan\{v_1, v_2, \ldots, v_i\}$, with $j < n$. 
 
-		Let $U = \span \mathcal{V}$. So $V / U$ is a non-trivial $\C$ vector space, and $U$ is an invariant subspace under $T$. So we have an eigenvector $U + v_{j+1}$ of the operator $T / U$, so $(T / U)(U + v_{j+1}) = U + \lambda v_{j+1}$. 
+		Let $U = \vspan \mathcal{V}$. So $V / U$ is a non-trivial $\C$ vector space, and $U$ is an invariant subspace under $T$. So we have an eigenvector $U + v_{j+1}$ of the operator $T / U$, so $(T / U)(U + v_{j+1}) = U + \lambda v_{j+1}$. 
 
 		So if we let $v_{j+1}$ be a coset representative of $U + v_{j+1}$ then we have $T(v_{j+1}) = a_1 v_1 + a_2 v_2 + \ldots a_j v_j + \lambda v_{j+1} \in \vspan\{v_1, v_2, \ldots v_{j+1}\}$ and so we have $\mathcal{V} \cup \{v_{j+1}\}$ as a set of $j + 1$ vectors that satisfies the property. So by induction we have the desired basis.
+\end{proof}
+
+\begin{thm}
+		Let $V$ be a finite dimensional vector space and $T \in \mathcal{L}(V)$  have an upper triangular matrix with respect to some basis $\mathcal{V} = \{v_1, v_2, \ldots, v_n\}$. Then $T$ is bijective iff all the entries on the diagonal of $\mathcal{M}(T, \mathcal{V})$ are non-zero.
+\end{thm}
+
+\begin{proof}
+		First we assume the entries on the diagonal are non-zero. Let them be $\lambda_1, \lambda_2, \ldots, \lambda_n$ from left to right. We claim that $v_1, v_2, \ldots, v_n \in T(V)$. We proceed by induction, assume $v_1, v_2, \ldots, v_j \in T(V)$. 
+
+		We have that $T(\frac{v_{j+1}}{\lambda_{j+1}}) = v_{j+1} + b_j v_j + \ldots + b_2 v_2 + b_1 v_1$ for some scalars $b_1, b_2, \ldots, b_j$, so we have $v_{j+1} \in T(V)$. So we have $v_1, v_2, \ldots, v_n \in T(V)$ as claimed, and so $V \subset T(V)$ as $\mathcal{V}$ spans $V$, so $T$ is surjective. As $V$ is finite dimensional, this means that $T$ is bijective.
+
+		Now assume that $T$ is bijective. Say that an entry $\lambda_j = 0$, then $T(v_1), T(v_2), \ldots, T(v_j) \in \vspan\{v_1, v_2, \ldots, v_j\}$. As the span has dimension $j$, the images must be linearly dependent, contradicting that bijective linear maps preserve linear independence. Hence all the entries on the diagonal are non-zero.
+\end{proof}
+
+\begin{thm}
+		Let $V$ be a finite dimensional vector space and $T \in \mathcal{L}(V)$  have an upper triangular matrix with respect to some basis $\mathcal{V} = \{v_1, v_2, \ldots, v_n\}$. Then the eigenvalues of $T$ are precisely the entries on the diagonals of $\mathcal{M}(T,\mathcal{V})$.
+\end{thm}
+
+\begin{proof}
+		As $V$ is finite dimensional, $\lambda$ is an eigenvalue precisely when $T - \lambda I$ is non-bijective, which is precisely when $\lambda$ is one of the entries on the diagonal.
+\end{proof}
+
+\section{Inner Product Spaces}
+		
+\subsection{Inner Products}
+
+A key aspect of the structure of the classical examples of vector spaces such as Euclidean space which we have not generalised is the notion of the dot product, whose key aspect is that it allows fora notion of angles between vectors, and most importantly the idea that vectors are orthogonal. We may generalise this idea into the inner product of a vector space, however we will only do so for $\R$ and $\C$ vector spaces.
+
+\begin{defi} [Inner Product]
+	Let $V$ be an $\R$ or $\C$ vector space. Then we say a mapping $<.,.>: V^2 \to k$ is an inner product iff it satisfies all of the following
+	\begin{enumerate}
+			\item $\langle v, v \rangle \geq 0$ for all $v \in V$ (non-negativity)
+			\item $\langle v, v \rangle = 0$ iff $v = 0$ (definiteness)
+			\item $\langle u+v, w \rangle = \langle u, w \rangle + \langle v, w \rangle $ for all $u,v,w \in V$ (additivity of the first argument)
+			\item $\langle \lambda u, v \rangle = \lambda \langle u, v \rangle $ for all $\lambda \in k$ and $u,v \in V$ (homogeneity of the first argument)
+			\item $\langle u, v \rangle = \overline{\langle v, u \rangle }$ (conjugate symmetry)
+	\end{enumerate}
+
+	We call $V$ equipped with an inner product an inner product space.
+\end{defi}
+
+\begin{defi} [Orthogonality]
+	Let $V$ be an inner product space. We say $u,v \in V$ are orthogonal iff $\langle u, v \rangle = 0$.
+\end{defi}
+
+\begin{defi} [Norm]
+	Let $V$ be an inner product space. Then we define the norm of a vector $v \in V$ as
+	\begin{align*}
+			\|v\| =  \sqrt{\langle v, v \rangle }
+	\end{align*}
+\end{defi}
+
+From these axioms we may trivially show that there is conjugate homogeneity in the second argument, additivity in the second argument and that the inner prodcut of any vector and $0$ is $0$ in either order.
+
+The usual dot product we are familiar with over $k^n$ is referred to as the Euclidean inner product. It is trivially verified that this is indeed an inner product. This may be thought of as the inne r product which arises when we require that the elements of the standard basis have norm $1$ and are pairwise orthogonal.
+
+\begin{thm} [Pythagorean Theorem]
+	If $u,v \in V$ are orthogonal, then 
+	\begin{align*}
+	\|u+v\|^2 = \|u\|^2 + \|v\|^2
+	\end{align*}
+\end{thm}
+
+\begin{proof}
+		\begin{align*}
+				\|u+v\|^2 = \langle u+v, u+v \rangle \\
+				= \langle u, u \rangle + \langle u, v \rangle + \langle v, u \rangle + \langle v, v \rangle \\
+				= \langle u, u \rangle  + \langle v, v \rangle \\
+				= \|u\|^2 + \|v\|^2
+		\end{align*}
+\end{proof}
+
+\begin{figure}[ht]
+\centering
+\incfig{orthogonal_decomposition}
+\caption{Illustration of $v$ being broken down into orthogonal components.}
+\label{fig:orthogonal-decomposition}
+\end{figure}
+
+It is often useful to be able to express a vector $v$ as a sum of a scaled $u$ and a vector orthogonal to $u$, as in Figure ~\ref{fig:orthogonal-projection}. 
+
+We call this expression an orthogonal decomposition of $v$ with respect to $u$. A trivial manipulaton yields that $v = \lambda u + (v - \lambda u)$, where $\lambda = \frac{\langle v, u \rangle }{\|u\|^2}$ is the desired sum. Of course this fails exactly when $u = 0$.
+
+\begin{thm} [Cauchy-Scwarz Inequality]
+
+	Let $u,v \in V$. Then $\|u\|\|v\| \geq |\langle u, v \rangle |$, with equality precisely when $u$ and $v$ are scalar multiplies of eachother.
+		
+\end{thm}
+
+\begin{proof}
+		If $u = 0$ then the result is trivial. Otherwise we may orthogonally decompose $v$ to yield
+		\begin{align*}
+				v = \frac{\langle v, u \rangle }{\|u\|^2} u + (v - \frac{\langle v, u \rangle }{\|u\|^2}u) \\
+		\end{align*}
+		We may now apply Pythagoras' theorem to yield
+		\begin{align*}
+				\|v\|^2 = \frac{|\langle v, u \rangle |^2}{\|u\|^{4}} \|u\|^2 + \|v - \frac{\langle v, u \rangle }{\|u\|^2}\|^2
+				\geq \frac{|\langle v, u \rangle |^2}{\|u\|^2}
+		\end{align*}
+		Rearrangement yields the desired inequality. Equality arises precisely when the orthogonal component is zero, that is when $u$ and $v$ are scalar multiplies of eachother.
+\end{proof}
+
+\begin{thm} [Triangle Inequality]
+	Let $u,v \in V$. Then $\|u+v\| \leq \|u\| + \|v\|$, with equality precisely when $u$ and $v$ are nonnegative multiples of eachother.	
+\end{thm}
+
+\begin{proof}
+	 \begin{align*}
+			\|u+v\|^2 = \langle u+v, u+v \rangle \\
+			= \|u\|^2 + \|v\|^2 + 2\Re \langle u, v \rangle  \\
+			\leq \|u\|^2 + \|v\|^2 + 2|\langle u, v \rangle | \\
+			\leq \|u\|^2 + \|v\|^2 + 2\|u\|\|v\| \\
+			= (\|u\| + \|v\|)^2
+	\end{align*}	
+	Equality occurs only when $u$ and $v$ are scalar multplies of eachother and $\Re \langle u, v \rangle = |\langle u, v \rangle |$, which is precisely when $u $ and $v$ are nonnegative multiplies of eachother.
+\end{proof}
+
+\subsection{Orthonormal Bases}
+
+\begin{defi} [Orthonormal Set]
+		Let $V$ be an inner product space, and $\mathcal{V}$ a finite set of vectors in $V$. Then we say $\mathcal{V}$ is orthonormal iff all of its elements have norm $1$ and are pairwise orthogonal.
+\end{defi}
+
+Orthonormal sets behave quite nicely. This is due mainly to the fact that the norm of a linear combination is the sum of squares of the absolute values of the scalars by repeated applications of Pythagoras and that we may "extract" any scalar in a linear combination by taking the inner product with the corresponding vector.
+
+\begin{thm}
+		Any orthonormal set, $\mathcal{V},$ is linearly independent.
+\end{thm}
+
+\begin{proof}
+		Let $\mathcal{V} = \{e_1, e_2, \ldots, e_n\}$. Say we have a $0$ linear combination 
+		\begin{align*}
+			a_1 e_1 + a_2 e_2 + \ldots + a_n e_n = 0	
+		\end{align*}
+		Then taking the square of the norms of both sides yields
+		\begin{align*}
+				|a_1|^2 + |a_2|^2 + \ldots + |a_n|^2 = 0
+		\end{align*}
+		This is a sum of real squares, hence every scalar is $0$ and so the combination is trivial.
+\end{proof}
+
+\begin{thm}
+		Let $\mathcal{V} = \{e_1, e_2, \ldots, e_n\}$ be an orthonormal basis of $V$. Then for any $v \in V$, we have that 
+		\begin{align*}
+				v = \langle v, e_1 \rangle e_1 + \langle v, e_2 \rangle e_2 + \ldots + \langle v, e_n \rangle e_n
+		\end{align*}
+\end{thm}
+
+\begin{proof}
+		$\mathcal{V}$ is a basis, so we for for some unique $a_1, a_2, \ldots, a_n \in k$ that
+		\begin{align*}
+				v = a_1 e_1 + a_2 e_2 + \ldots + a_n e_n
+		\end{align*}
+		Taking the left inner product with $e_j$ gives $\langle v, e_j \rangle = a_j$. 
+\end{proof}
+
+\begin{figure}[ht]
+\centering
+\incfig{gram_schmidt}
+\caption{Illustration of how the Gram-Schmidt procedure removes the components of a vector parralel to the previous ones to form an orthogonal vector.}
+\label{fig:gram-schmidt}
+\end{figure}
+		
+\begin{thm} [Gram-Schmidt Procedure]
+		Let $\mathcal{V} = \{v_1, v_2, \ldots, v_n\}$ be a linearly independent set of vectors in $V$. Define the vectors $\mathcal{V}' = \{e_1, e_2, \ldots, e_n\}$ inductively by
+	\begin{align*}
+			e_{j+1} = \frac{v_{j+1} - (\langle v_{j+1}, e_1 \rangle e_1 + \langle v_{j+1}, e_2 \rangle e_2 + \ldots + \langle v_{j+1}, e_j \rangle e_j)}{\|v_{j+1} - (\langle v_{j+1}, e_1 \rangle e_1 + \langle v_{j+1}, e_2 \rangle e_2 + \ldots + \langle v_{j+1}, e_j \rangle e_j)\|}
+	\end{align*}
+	Then $\mathcal{V}'$ is orthonormal and $\vspan \mathcal{V} = \vspan \mathcal{V}'$.
+\end{thm}
+
+\begin{proof}
+		We will show that for every $j \leq n$, that 
+		\begin{align*}
+		\vspan\{v_1, v_2, \ldots, v_j\} = \vspan\{e_1, e_2, \ldots, e_j\}
+		\end{align*}
+		and $\{e_1, e_2, \ldots, e_j\}$ is orthonormal. We proceed by induction. First we show that $\{e_1, e_2, \ldots, e_{j+1}\}$ is orthonormal. We have
+		\begin{align*}
+				\langle e_{j+1}, e_i \rangle = \lambda \langle v_{j+1} - (\langle v_{j+1}, e_1 \rangle e_1 + \langle v_{j+1}, e_2 \rangle e_2 + \ldots + \langle v_{j+1}, e_j \rangle e_j), e_i \rangle\\
+				= \lambda(\langle v_{j+1}, e_i \rangle - \langle v_{j+1}, e_i \rangle \langle e_i, e_i \rangle ) \\
+				= 0
+		\end{align*}
+		Hence $e_{j+1}$ is orthogonal to the other vectors, and by induction the remaining vectors are all pairwise orthogonal, hence the entire set is pairwise orthogonal. The vectors are all normal by construction, so the set is orthonormal.
+
+		By induction, we have $\vspan\{v_1, v_2, \ldots, v_j\} = \vspan\{e_1, e_2, \ldots, e_j\}$, and hence $(\langle v_{j+1}, e_1 \rangle e_1 + \langle v_{j+1}, e_2 \rangle e_2 + \ldots + \langle v_{j+1}, e_j \rangle e_j) \in \vspan\{v_1, v_2, \ldots, v_j\}$, so we have $e_{j+1} \in \vspan\{v_1, v_2, \ldots, v_{j+1}\}$. Hence $\vspan\{e_1, e_2, \ldots, e_{j+1}\} \subset \vspan\{v_1,v_2, \ldots, v_{j+1}\}$. $\{e_1, e_2, \ldots, e_{j+1}\}$ is orthonormal and hence linearly independent, so $\vspan\{e_1, e_2, \ldots, e_{j+1}\} = \vspan\{v_1,v_2, \ldots, v_{j+1}\}$ as they have equal dimensions and one is contained in the other.
+\end{proof}
+
+An extremely useful and immediate consequence of this procedure is that it means we may produce an orthonormal basis from a basis, and so every finite dimensional inner product space has an orthonormal basis. 
+
+Indeed, as the Gram-Schmidt procedure doesn't change the spans of any of the subsets of the form $\{v_1,v_2,\ldots, v_j\}$ this means that if a matrix is upper-triangular with respect to a basis, then the it will also be upper triangular with respect to the orthonormal basis produced by Gram Schmidt. 
+
+This means that all operators on non-trivial $\C$ vector spaces have an orthonormal basis with respect to which their matrix is upper-triangular. This result is known as Schurs' Theorem.
+
+\begin{thm} [Riesz Representation Theorem]
+		Let $\varphi$ be a linear functional on a finite dimensional inner product space $V$. Then for some unique $u \in V$, we have
+		\begin{align*}
+				\varphi (v) = \langle v, u \rangle 
+		\end{align*}
+\end{thm}
+
+\begin{proof}
+		First we show existence. As $V$ is a finite dimensional inner product space, by the Gram Schmidt procedure we have some orthnormal basis $\mathcal{V} = \{e_1, e_2, \ldots, e_n\}$. So we have
+		\begin{align*}
+				\varphi(v) = \varphi(\langle v, e_1 \rangle e_1 + \langle v, e_2 \rangle e_2 + \ldots + \langle v, e_n \rangle e_n) \\
+				= \langle v, e_1 \rangle \varphi(e_1) + \langle v, e_2 \rangle \varphi(e_2) + \ldots + \langle v, e_n \rangle \varphi(e_n)\\
+				= \langle v, \overline{\varphi(e_1)}e_1 + \overline{\varphi(e_2)} e_2 + \ldots + \overline{\varphi(e_n)} e_n \rangle 
+		\end{align*}
+		Hence $u = \overline{\varphi(e_1)}e_1 + \overline{\varphi(e_2)} e_2 + \ldots + \overline{\varphi(e_n)} e_n$ is a valid choice.
+
+		Say that $u_1$ and $u_2$ satisfy the criteria, so $\langle v, u_1 \rangle = \langle v, u_2 \rangle $ for all $v \in V$. This yields $\langle v, u_1-u_2 \rangle = 0$ for all $v \in V$, and letting $v = u_1-u_2$ shows that $u_1-u_2=0$, or $u_1 = u_2$, so the choice of $u$ is unique. 
+\end{proof}
+
+\subsection{Orthogonal Complements}
+
+\begin{defi} [Orthogonal Complement]
+		Let $V$ be an inner product space and $U \subset V$ be a subset of $V$. Then we define the orthogonal complement of $U$, $U^{\perp}$ as the set of all vectors in $V$ orthogonal to every element of $U$.
+\end{defi}
+
+We have defined the orthogonal complement for an arbitrary subset, however due to the linearity and homogeneity of the inner product, $U^{\perp} = \vspan(U)^{\perp}$. So whilst we will be mainly interested in the orthogonal complement of a subspace, in practice it is easiest to compute it by considering the orthogonal complement of a basis of the subspace. 
+
+When we use our geometric intuition, we see that it is plausible that $V$ may be expressed as the direct sum of a subspace and its orthogonal complement. In the finite dimensional case this turns out to be true.
+
+\begin{thm}
+		Let $V$ be an inner product space and $U \subset V$ a finite-dimensional subspace of $V$. Then $V = U \oplus U^{\perp}$.	
+\end{thm}
+
+\begin{proof}
+		Let $\mathcal{U} = \{e_1,e_2,\ldots,e_n\}$ be an orthonormal basis of $U$. Consider an arbitrary $v \in V$, we may write $v$ as $v = w + (v - w)$, where
+		\begin{align*}
+				w = \langle v, e_1 \rangle e_1 + \langle v, e_2 \rangle e_2 + \ldots + \langle v, e_n \rangle e_n
+		\end{align*}
+		Intuitively we may regard $w$ as the components of $v$ parralel to $U$, so then in a manner similar to the Gram-Schmidt procedure, we have $v-w \in U^{\perp}$, so $v \in U + U^{\perp}$, and hence $V = U + U^{\perp}$. 
+
+		The intersection of $U$ and $U^{\perp}$ must be $\{0\}$, as $0$ is the only vector orthogonal to itself by definiteness, and so the sum is direct.
+\end{proof}
+
+\begin{thm}
+		Let $V$ be an inner product space. Then over the finite-dimensional subspaces of $V$, taking the orthogonal complement is an involution.	
+\end{thm}
+
+\begin{proof}
+		Let $U$ be an arbitrary finite-dimensional subspace of $V$. Say that $u \in U$, then for all $w \in U^{\perp}$ we have that $u \perp w$, so $u \in (U^{\perp})^{\perp}$, and so $U \subset (U^{\perp})^{\perp}$. 
+
+		As $U$ is finite-dimensional, we have $(U^{\perp})^{\perp}  \subset V = U \oplus U^{\perp}$, so  for any $v \in (U^{\perp})^{\perp}$, we have $u \in U$ and $w \in U^{\perp}$ such that $v = u + w$. 
+
+		Taking the left inner product with $w$ yields $\langle w, w \rangle = 0$, so $w = 0$, and so $v = u \in U$. Hence $(U^{\perp})^{\perp} \subset U$. So we have $U = (U^{\perp})^{\perp}$.
+\end{proof}
+
+In light of the idea of orthogonal complements, we may define the notion of the projection of a vector onto a subspace. 
+
+\begin{defi} [Orthogonal Projection]
+		Let $U$ be a finite dimensional subspace of $V$, then we define the orthogonal projection operator $P_U$ of $v$ as $u$, where $v = u + w$ is the unique sum of $v$ as vectors from $U$ and $U^{\perp}$.
+\end{defi}
+
+\begin{figure}[ht]
+\centering
+\incfig{orthogonal_projection}
+\caption{Illustration of orthogonal projection in $\R^{3}$ onto a plane}
+\label{fig:orthogonal-projection}
+\end{figure}
+
+
+We have already used this idea in the Gram-Schmidt procedure, where the vector we subtract from $v_{j+1}$ is really just its orthogonal projection onto the subspace spanned by $\{e_1,e_2,\ldots,e_j\}$. However it is more elegant to think in terms of orthogonal projections, as its properties reflect most of the intuitive notions of vectors we have as arrows in space. 
+
+One striking illustration of the power of being able to reason abstractly from geometric intuitions is that the orthogonal projection of $v$ onto a finite dimensional subspace $U$ is the element of $U$ with minimal distance to $v$. Whilst this is trivial thinking of vectors as points in space, this result can apply to arbitrary vector spaces, so for example it allows us to find the polynomial of given degree that minimises the distance to a specific continuous function (we can use the integral of the difference as a measure of "distance" in this case, and so define the inner product appropriately)
+
+\begin{thm}
+		Let $U$ be a finite-dimensional subspace of $V$, and $v \in V$. Then for all $u \in U$ we have
+		\begin{align*}
+				\|v - P_U(v)\| \leq \|v - u\|	
+		\end{align*}
+		With equality precisely when $u = P_U(v)$.
+\end{thm}
+
+\begin{proof}
+		\begin{align*}
+				\|v - P_U(v)\|^2 \leq \|v - P_U(v)\|^2 + \|u - P_U(v)\|^2 \\
+				= \|v - u\|^2
+		\end{align*}
+		There is equality precisely when $\|u - P_U(v)\|^2 = 0$, which is exactly when $u = P_U(v)$.
+\end{proof}
+
+\section{Operators on Inner Product Spaces}
+
+\subsection{Self-Adjoint and Normal Operators}
+
+\begin{defi} [Adjoint]
+		Let $T$ be a linear map between finite dimensional inner product spaces $V$ and $W$, then we define the adjoint $T^*: W \to V$ as the unique mapping satisfying
+		\begin{align*}
+				\langle T(v), w \rangle  = \langle v, T^*(w) \rangle 
+		\end{align*}
+		For all $v \in V$ and $w \in W$.
+\end{defi}
+
+This definition makes sense due to Riesz representation theorem. Indeed it is trivially shown that $T*$ is actually a linear map, and various other properties such as $(S+T)^* = S^* + T^*$, $(T^*)^*$, etc, whose proofs we omit due to their triviality.
+
+\begin{thm}
+		Let $T$ be a linear map between finite dimensional inner product spaces $V$ and $W$. Then we have $\ker T^* = (T(V))^{\perp}$.
+\end{thm}
+
+\begin{proof}
+		\begin{align*}
+				w \in \ker T^* \\
+				\iff T^*(w) = 0 \\
+				\iff \forall v \in V (\langle v, T^*(w) \rangle = 0) \\
+				\iff \forall v \in V (\langle T(v), w \rangle = 0) \\
+				\iff w \in (T(V))^{\perp}.
+		\end{align*}
+\end{proof}
+
+Whilst our definition of the adjoint seems rather abstract and complicated, it has a very simple and concrete meaning with regards to the matrix representation, at least when we are using orthonormal bases.
+
+\begin{thm} [Matrix of the Adjoint]
+		Let $V$ and $W$ be finite-dimensional inner product spaces, with $\mathcal{V} = \{e_1, e_2, \ldots, e_n\}$ and $\mathcal{W} = \{f_1, f_2, \ldots, f_m\}$ orthonormal bases of $V$ and $W$ respectively. If $T \in \mathcal{L}(V,W)$ is a linear map, then we have that $\mathcal{M}(T,\mathcal{V},\mathcal{W})$ and $\mathcal{M}(T*,\mathcal{W},\mathcal{V})$ are each others conjugate transpose.
+\end{thm}
+
+\begin{proof}
+	Since $\mathcal{W}$ is orthonormal, we have that
+	\begin{align*}
+			T(e_j) = \langle T(e_j), f_1 \rangle f_1 + \langle T(e_j), f_2 \rangle f_2 + \ldots + \langle T(e_j), f_m \rangle f_m \\
+			= \langle e_j, T^*(f_1) \rangle f_1 + \langle e_j, T^*(f_2) \rangle f_2 + \ldots + \langle e_j, T^*(f_m) \rangle f_m \\
+			= \overline{\langle T^*(f_1), e_j \rangle} f_1 + \overline{\langle T^*(f_2), e_j \rangle} f_2 + \ldots + \overline{\langle T^*(f_m), e_j \rangle } f_m
+	\end{align*}
+	So we have that $\mathcal{M}(T)_{ij} = \overline{\langle T^*(f_i), e_j \rangle }$
+
+	As $\mathcal{V}$ is orthonormal, we have that
+	\begin{align*}
+			T^*(f_j) = \langle T^*(f_j), e_1 \rangle e_1 + \langle T^*(f_j), e_2 \rangle e_2 + \ldots + \langle T^*(f_j), e_n \rangle e_n
+	\end{align*}
+	So we have that $\mathcal{M}(T^*)_{ij} = \langle T^*(f_j), e_i \rangle $
+
+	Hence $\mathcal{M}(T)$ and $\mathcal{M}(T^*)$ are the conjugate transposes of each other.
+\end{proof}
+
+From here we restrict our attention to operators, as it is in the context of operators that the domain and range coincide. So a mapping may equal its own transpose, and we may consider the product of an operator with its transpose. This allows us to consider the notion of normal and self-adjoint operators.
+
+\begin{defi} [Self-Adjoint]
+		Let $V$ be a finite-dimensional inner product space. We say the operator $T \in \mathcal{L}(V)$ is self-adjoint iff $T = T^*$.	
+\end{defi}
+
+\begin{defi} [Normal Operator]
+		Let $V$	be a finite-dimensional inner product space. We say the operator $T \in \mathcal{L}(V)$ is normal iff $TT^* = T^*T$.
+\end{defi}
+
+Of course all self-adjoint operators are normal, so normality is a weaker condition. Whilst the criteria for normality and self-adjointedness may seem arbitrary and of little interest, they turn out to lead to extremely nice properties. 
+
+\begin{thm} \label{thm:self-adjoint-real-eigenvalues}
+		Every eigenvalue of a self-adjoint operator is real.
+\end{thm}
+
+\begin{proof}
+		Let $\lambda$ be an eigenvalue of the self adjoint operator $T \in \mathcal{L}(V)$. Then for some non-zero $v \in V$, we have $T(v) = \lambda v$. By self-adjointedness, we have
+		\begin{align*}
+				\langle T(v), v \rangle = \langle v, T(v) \rangle  \\
+				\langle \lambda v, v \rangle = \langle v, \lambda v \rangle \\
+		\lambda = \overline{\lambda}
+		\end{align*}
+		Hence $\lambda$ is real.
+\end{proof}
+
+This result is of course only of significance over a $\C$ vector space. As is often the case, there is an alternative proof of the result by consideration of the matrix of the operator. 
+
+Since the result is trivial in $\R$ spaces, we assume $V$ is a complex inner product space, and so we have a basis in which the matrix is upper triangular. In this case, due to self-adjointedness, the matrix is its own conjugate transpose, meaning all the entries on the diagonals, that is, the eigenvalues, are their own complex conjugates.
+
+\begin{thm}
+		Let $V$ be a complex inner product space. Then $T = 0$ is the only operator such that every vector is orthogonal to its own image under $T$.
+\end{thm}
+
+\begin{proof}
+		Let $T \in \mathcal{L}(V)$ be such an operator. Let $u$ and $v$ be arbitrary vectors in $V$. Then we have
+		\begin{align*}
+				\langle T(u), v \rangle = \frac{\langle T(u+v), u+v \rangle - \langle T(u-v), u-v \rangle + i \langle T(u+iv), u+iv \rangle - i \langle T(u-iv), u -iv \rangle }{4} \\
+				= 0
+		\end{align*}
+		So if we let $v = T(u)$, then $T(u) = 0$ for all $u \in V$, hence $T = 0$.
+\end{proof}
+
+The hypothesis that the inner product space is complex is essential, as there are non-zero operators over real inner product spaces which satisfy this propery. For example an order $4$ turn about the origin in $\R^2$.
+
+\begin{thm}
+		Let $V$ be a complex inner product space. Then $T \in \mathcal{L}(V)$ is self-adjoint iff $\langle T(v), v \rangle \in \R$ for all $v \in V$.
+\end{thm}
+
+\begin{proof}
+		\begin{align*}
+				\forall v \in V: \langle T(v), v \rangle \in \R \\
+				\iff \forall v \in V: \langle T(v), v \rangle - \overline{\langle T(v), v \rangle } = 0 \\
+				\iff \forall v: \in V \langle (T-T^*)v, v \rangle = 0
+		\end{align*}
+		As $V$ is a complex inner product space, this occurs precisely when $T-T^*=0$, that is, when $T$ is self-adjoint.
+\end{proof}
+
+\begin{thm}
+	Let $V$ be an inner product space. Then $T = 0$ is the only self-adjoint operator such that every vector is orthogonal to its own image under $T$.
+\end{thm}
+
+\begin{proof}
+	We have already shown this for complex spaces, so we assume that $V$ is a real inner product space. Let $u$ and $v$ be arbitrary vectors in $V$. Then we have that
+	\begin{align*}
+			\langle T(u), v \rangle = \frac{\langle T(u+v), u+v \rangle - \langle T(u-v), u-v \rangle }{4} \\
+			= 0
+	\end{align*}
+	So if we let $v = T(u)$, then $T(u) = 0$ for all $u \in V$, hence $T = 0$.
+\end{proof}
+
+\begin{thm}
+		Let $V$ be an inner product space, and $T \in \mathcal{L}(V)$ an operator on $V$. Then $T$ is normal iff $\|T(v)\| = \|T^*(v)\|$ for all $v \in V$.
+\end{thm}
+
+\begin{proof}
+		\begin{align*}
+				\forall v \in V: \|T(v)\| = \|T^*(v)\| \\	
+				\iff \forall v \in V: \langle T(v), T(v) \rangle = \langle T^*(v), T^*(v) \rangle \\
+						\iff \forall v \in V: \langle (T^*T - TT^*)v, v \rangle = 0
+		\end{align*}
+		The operator $TT^* - T^*T$ is self-adjoint, hence this is true precisely when $TT^* - T^*T = 0$, that is, when $T$ is normal.
+\end{proof}
+
+\begin{thm}
+		Let $T \in \mathcal{L}(V)$ be a normal operator, and $v \in V$ an eigenvector of $T$ with eigenvalue $\lambda$. Then $v$ is also an eigenvector of $T$, with eigenvalue $\overline \lambda$.
+\end{thm}
+
+\begin{proof}
+		By the normality of $T$, we have for any $v \in V$, that $\|(T - \lambda I) v\| = \|(T^* - \overline \lambda I) v|$. So $T - \lambda I$ is injective precisely when $T^* - \overline \lambda I$ is. 
+\end{proof}
+
+This is actually just a stronger statement of Theorem ~\ref{thm:self-adjoint-real-eigenvalues}, as in the case of a self-adjoint operator, it is its own adjoint and so every eigenvalue is its own complex conjugate.
+
+\begin{thm}
+		Let $T \in \mathcal{L}(V)$ be a normal operator. Then the eigenvectors of $T$ corresponding to distinct eigenvalues are orthogonal.	
+\end{thm}
+
+\begin{proof}
+		Let $v_1$ and $v_2$ be eigenvectors with distinct corresponding eigenvalues $\lambda_1$ and $\lambda_2$. $T$ is normal, so $T^*(v_2) = \overline \lambda_2 v_2$.
+
+		\begin{align*}
+				(\lambda_1 - \lambda_2) \langle v_1, v_2 \rangle = \langle \lambda_1 v_1, v_2 \rangle - \langle v_1, \overline \lambda_2 v_2 \rangle \\
+				= \langle T(v_1), v_2 \rangle - \langle v_1, T^*(v_2) \rangle \\
+				= 0
+		\end{align*}
+
+		As $\lambda_1$ and $\lambda_2$ are distinct, we have that $\langle v_1, v_2 \rangle = 0$, hence the eigenvectors are orthogonal.
+\end{proof}
+
+\subsection{The Spectral Theorem}
+
+\begin{thm} [Complex Spectral Theorem]
+		Let $V$ be a complex inner product space and $T \in \mathcal{L}(V)$ an operator. Then $T$ is normal precisely when there is an orthonormal basis of $V$ consisting of eigenvectors of $V$.
+\end{thm}
+
+\begin{proof}
+		First assume there is an orthonormal basis of eigenvectors. Then the matrices of $T$ and $T^*$ are diagonal with respect to that basis, and so they commute.	
+
+		Now assume that $T$ is normal. By Schur's theorem we have an orthonormal basis $\mathcal{V} = \{e_1,e_2,\ldots,e_n\}$ with respect to which $\mathcal{M}(T)$ is upper-triangular. We claim that $\mathcal{M}(T)$ is actually diagonal. We show non-diagonal entry on every row is $0$. Assume by induction that this holds for the first $j$ rows. We have, by the normality of $T$, that
+		\begin{align*}
+				\|T(e_j)\|^2 = \|T^*(e_j)\|^2 \\
+				\|\mathcal{M}_{jj}\|^2 = \|\mathcal{M}_{jj}\|^2 + \|\mathcal{M}_{j(j+1)}\|^2 + \ldots +  \|\mathcal{M}_{jn}\|^2 
+				0 = \|\mathcal{M}_{j(j+1)}\|^2 + \|\mathcal{M}_{j(j+2)}\|^2 + \ldots +  \|\mathcal{M}_{jn}\|^2 
+		\end{align*}
+		Hence all the non-diagonal entries on row $j+1$ are zero. So by induction the matrix is diagonal, and so the orthonormal basis consists entirely of eigenvectors.
+\end{proof}
+
+\begin{thm} \label{thm:irreducible-quadratics}
+		Let $T \in \mathcal{L}(V)$ be a self-adjoint operator, and $b$ and $c$ be reals such that $b^2 - 4c < 0$, then the operator $T^2 + bT + cI$ is bijective.
+\end{thm}
+
+\begin{proof}
+		Consider an arbitrary non-zero $v \in V$. Then we have 
+		\begin{align*}
+				\langle (T^2 + bT + cI)v, v \rangle  \\
+				= \langle T(v), T(v) \rangle + b\langle T(v), v \rangle + c \langle v, v \rangle \\
+				\geq \|T(v)\|^2 - b \|T(v)\|\|v\| + c \|v\|^2
+				= (\|T(v)\| - \frac{b}{2} \|v\|)^2 + (c - \frac{b^2}{4})\|v\|^2
+				> 0
+		\end{align*}
+		Hence the kernel of  $T^2 + bT + cI$ is trivial and so it is bijective.
+\end{proof}
+
+\begin{thm}
+		Let $V$ be a finite inner product space, and $T \in \mathcal{L}(V)$ be a self-adjoint operator. Then $T$ has an eigenvalue.
+\end{thm}
+
+\begin{proof}
+		If $V$ is a complex inner product space, then we are done, as all operators on finite dimensional complex inner product spaces have an eigenvalue. So assume that $V$ is a real inner product space, and let its dimension be $n$. Let $v$ be a non-zero vector in $V$.
+
+		Then the set $\mathcal{V} = \{v, T(v), T^2(v), \ldots, T^n(v)\}$ is linearly dependent, so we have a choice of scalars $a_0, a_1, \ldots, a_n$ not all equal to $0$ such that the corresponding linear combination of $\mathcal{V}$ is $0$. Let the last non-zero scalar index be $j$, so $j \geq 1$ as $v \neq 0$. So we have
+		\begin{align*}
+				a_0 v + a_1 T(v) + \ldots + a_j T^j(v) = 0 \\
+				\frac{a_0}{a_j} v + \frac{a_1}{a_j} T(v) + \ldots \frac{a_{j-1}}{a_j}T^{j-1}(v)+ T^j(v) = 0 
+		\end{align*}
+		By the fundemental theorem of algebra, we may factorise the above expression into a product of linear and irreducible quadratic terms. As we have shown in Theorem ~\ref{thm:irreducible-quadratics}, all of the irreducible quadratic factors are bijective and hence we may apply their inverses to yield
+		\begin{align*}
+				(T - \lambda_1 I)(T - \lambda_2 I) \ldots (T - \lambda_m I) v = 0
+		\end{align*}
+		For some scalars $\lambda_1, \lambda_2, \ldots, \lambda_m$. Hence at least one of the factors is non-injective, and so one of $\lambda_i$ is an eigenvalue.
+\end{proof}
+
+\begin{thm}
+		Let $T \in \mathcal{L}(V)$ be a self-adjoint operator, and $U$ an invariant subspace under $T$. Then $U^{\perp}$ is also invariant under $T$.
+\end{thm}
+
+\begin{proof}
+		Let $w$ be an arbitrary vector in $U^{\perp}$. Then for all $u \in U$, we have $\langle w, T(u) \rangle = 0$, as $U$ is an invariant subspace. 
+
+		So we have by self-adjointedness that for all $u \in U$ that $\langle T(w), u \rangle = 0$, which means $T(w) \in U^{\perp}$, so $U^{\perp}$ is invariant.
+\end{proof}
+
+\begin{thm} [Real Spectral Theorem]
+		Let $V$ be a real inner product space, and $T \in \mathcal{L}(V)$ an operator over $V$. Then $T$ is self-adjoint precisely when $V$ has an orthonormal basis of eigenvectors of $T$.
+\end{thm}
+
+\begin{proof}
+		First assume that there is an orthonormal basis of eigenvectors of $V$. Then the matrix of $T$ is diagonal with respect to this basis, and as all the entries are real, the matrix is its own conjugate transpose, and so $T$ is self-adjoint.
+
+		Now assume $T$ is self-adjoint. We proceed by induction on the dimension of $V$. As $T$ is self-adjoint, it has an eigenvector $v$. So $U = \vspan\{v\}$ is an invariant subspace, and so, by self-adjointedness, so is $U^{\perp}$. 
+
+		By induction, we have an orthonormal basis of eigenvectors, $\mathcal{V}$, of $U^{\perp}$. Hence $\mathcal{V} \cup \{\frac{v}{\|v\|}\}$ is the desired orthonormal basis of eigenvectors.
+\end{proof}
+
+\subsection{Positive Operators and Isometries}
+
+\begin{defi} [Positive Operators]
+		We say an operator $T \in \mathcal{L}(V)$ is positive iff $T$ is self-adjoint and $\langle T(v), v \rangle \geq 0$ for all $v \in V$.
+\end{defi}
+
+\begin{defi} [Square Root]
+		We say an operator $R \in \mathcal{L}(V)$ is a square root of the operator $T \in \mathcal{L}(V)$ iff $R^2 = T$.
+\end{defi}
+
+\begin{thm} 
+		Let $T \in \mathcal{L}(V)$ be an operator. Then the following are all equivalent:
+		\begin{enumerate}
+				\item $T$ is positive
+				\item $T$ is self-adjoint and all of its eigenvalues are nonnegative
+				\item $T$ has a positive square root
+				\item $T$ has a self-adjoint square root
+				\item We have an operator $R \in \mathcal{L}(V)$ such that $T = R^*R$.
+		\end{enumerate}
+\end{thm}
+
+\begin{proof}
+		First assume (1), then by definition $T$ must be self-adjoint. Say $\lambda$ is an eigenvalue of $T$, then for some non-zero $v \in V$, we have $T(v) = \lambda v$, so by positivity we have $\lambda \|v\|^2 \geq 0$, so $\lambda \geq 0$. Now assume (2), and so let an orthonormal basis of eigenvalues be $\mathcal{V} = \{e_1, e_2, \ldots, e_n\}$ and the corresponding eigenvalues be $\lambda_1, \lambda_2, \ldots, \lambda_n$ which are all nonnegative. Hence we have that
+		\begin{align*}
+				\langle T(a_1 e_1 + a_2 e_2 + \ldots + a_n e_n), a_1 e_1 + a_2 e_2 + \ldots + a_n e_n \rangle \\
+				= \sum_{i=1}^n \lambda_i a_i \sum_{j=1}^n \overline{a_j} \langle e_i, e_j \rangle \\
+				= \sum_{i=1}^n \lambda_i a_i \overline{a_i} \\
+		= \sum_{i=1}^n \lambda_i |a_i|^2 \\
+		\geq 0
+		\end{align*}
+
+		Now assume (2). Then we have an orthonormal basis of eigenvectors of $T$, $\mathcal{V} = \{e_1, e_2, \ldots, e_n\}$, with corresponding eigenvalues $\lambda_1, \lambda_2, \ldots, \lambda_n$. Then the operator $R$ defined by $R(e_j) = \sqrt{\lambda_j} e_j$ is the desired positive square root. Now if we assume (3), then $T$ must be self-adjoint, and its eigenvalues must be the squares of the nonnegative eigenvalues of the positive square root.
+
+		Now assume (3), then (4) follows trivially as self-adjointness is a weaker condition than positivity. Now assume (4), so $T$ has a self-adjoint square root, $R$. By the spectral theorem, we have an orthonormal basis of eigenvectors of $T$, $\mathcal{V} = \{e_1,e_2,\ldots,e_n\}$. Let the eigenvalues be $\lambda_1, \lambda_2, \ldots, \lambda_n$, which must be real as $T$ is self-adjoint. So $T(v_j) = \lambda_j^2 v_j$, and hence $R'(v_j) = |\lambda_j| v_j$ is the desired positive square root.
+
+		Now assume (4), so there is a self-adjoint square root $R^2 = T$, so $R^*R = T$. Assume (5), then $T$ is self-adjoint, so we have an orthonormal basis of eigenvectors of $T$, $\mathcal{V} = \{e_1,e_2,\ldots,e_n\}$, with corresponding real eigenvalues $\lambda_1, \lambda_2, \ldots, \lambda_n$. So we have
+		\begin{align*}
+				R^*R(v_j) = \lambda_j v_j \\
+				\langle R^*R(v_j), v_j \rangle = \lambda_j \langle v_j, v_j \rangle \\
+				\|R(v_j)\|^2 = \lambda_j \|v_j\|^2
+		\end{align*}
+		So each $\lambda_j$ is nonnegative, and so $T$ has a self-adjoint square root.
+\end{proof}
+
+\begin{thm}
+		Let $V$ be a finite dimensional inner product space and $T \in \mathcal{L}(V)$ a positive operator. Then $T$ has a unique positive square root.
+\end{thm}
+
+\begin{proof}
+		We already have that $T$ must have a positive square root, so we need only show uniqueness. Let $R$ be a positive square root of $T$, and $v$ an arbitrary eigenvector of $T$ with eigenvalue $\lambda$. 
+
+		By the positivity of $R$, we have an orthonormal basis $\mathcal{V} = \{e_1, e_2, \ldots, e_n\}$ of $V$ consisting of eigenvectors of $R$. Let the corresponding eigenvalues by $\sqrt{\lambda_1}, \sqrt{\lambda_2}, \ldots, \sqrt{\lambda_n}$, so $R(e_j) = \sqrt{\lambda_j} e_j$.
+
+		As $\mathcal{V}$ is a basis, we have for some choice of scalars $a_i$, that
+		\begin{align*}
+				v = a_1 e_1 + a_2 e_2 + \ldots + a_n e_n \\
+				R^2(v) = a_1 \lambda_1 e_1 + a_2 \lambda_2 e_2 + \ldots + a_n \lambda_n e_n \\
+				= \lambda v \\
+				a_1 (\lambda_1 - \lambda) e_1 + a_2 (\lambda_2 - \lambda) e_2 + \ldots + a_n (\lambda_n - \lambda) e_n = 0
+		\end{align*}
+		So by the linear independence of $\mathcal{V}$, we have that for every $j$, $a_j = 0$ or $\lambda_j = \lambda$. Hence we have
+		\begin{align*}
+				v = \sum_{\lambda_j = \lambda} a_j e_j \\
+				R(v) = \sqrt{\lambda} v
+		\end{align*}
+		Since the square root is determined on the eigenvectors of $T$ and by self-adjointedness, there is an orthonormal basis of $V$ consisting of eigenvectors $T$, hence $R$ is unique.
+\end{proof}
+
+\begin{defi} [Isometry]
+		Let $V$ be an inner product space, and $T \in \mathcal{L}(V)$ be an operator on $V$. Then $T$ is an isometry iff it preserves norms.
+\end{defi}
+
+\begin{thm}
+		Let $S \in \mathcal{L}(V)$ be an operator in $V$. Then the following are equivalent:
+		\begin{enumerate*}
+		\item $S$ is an isometry
+		\item $\langle S(u), S(v) \rangle = \langle u, v \rangle $ for all $u, v \in V$.
+		\item $\{S(e_1), S(e_2), \ldots, S(e_n)\}$ is orthnormal for all orthonormal $\{e_1,e_2,\ldots,e_n\}$
+		\item $\{S(e_1), S(e_2), \ldots, S(e_n)\}$ is orthnormal for some orthonormal orthonormal $\{e_1,e_2,\ldots,e_n\}$
+		\item $S^*S = SS^* = I$.
+		\item $S^*$ is an isometry.
+		\end{enumerate*}
+\end{thm}
+
+\begin{proof}
+		First assume (1). If $V$ is a real inner product space then
+		\begin{align*}
+				\langle S(u), S(v) \rangle = \frac{\|u+v\|^2 - \|u-v\|^2}{4}.
+		\end{align*}
+		If $V$ is a complex inner product space then
+		\begin{align*}
+				\langle S(u), S(v) \rangle = \frac{\|u+v\|^2 - \|u-v\|^2 + i\|u+iv\|^2 - i\|u-iv\|^2}{4}.
+		\end{align*}
+		In either case, we see the inner product may be computed from norms, and hence $\langle S(u), S(v) \rangle = \langle u, v \rangle $ for all $u, v \in V$. Of course (2) implies (1).
+
+		Now assume (2), then (3) trivially holds as orthnormality is based entirely on the inner product. Now assume (3), and let $\{e_1, e_2, \ldots, e_n\}$ be an orthonormal basis, so $\{S(e_1), S(e_2), \ldots, S(e_n)\}$ is as well. Consider an arbitrary $v \in V$, then 
+\begin{align*}
+		\|S(v)\|^2 = \|S(\langle v, e_1 \rangle e_1 + \langle v, e_2 \rangle e_2 + \ldots + \langle v, e_n \rangle e_n\|^2 \\
+		= \|\langle v, e_1 \rangle \|^2 + \|\langle v, e_2 \rangle \|^2 + \ldots + \|\langle v, e_n \rangle \|^2 \\
+		= \|v\|^2
+\end{align*}
+Hence $S$ preserves norms, and so it preserves the inner product, hence we have (2).
+
+(3) and (4) are trivially equivalent.
+
+Assume (4), and let $\{e_1, e_2, \ldots, e_n\}$ be an orthonormal basis, so $\{S(e_1), S(e_2), \ldots, S(e_n)\}$ is as well. Consider an arbitrary $v \in V$, then we have
+\begin{align*}
+		v = \langle v, S(e_1) \rangle S(e_1) + \langle v, S(e_2) \rangle S(e_2) + \ldots + \langle v, S(e_n) \rangle S(e_n) \\
+		= S(\langle v, S(e_1) \rangle e_1 + \langle v, S(e_2) \rangle e_2 + \ldots + \langle v, S(e_n) \rangle e_n) \\
+		= S(\langle S^*(v), e_1 \rangle e_1 + \langle S^*(v), e_2 \rangle e_2 + \ldots + \langle S^*(v), e_n \rangle e_n) \\
+		= SS^*(v) \\
+\end{align*}
+This implies $S$ is bijective, and so $S^*$ is its inverse, and so $SS^* = S^*S = I$. If we assume (5), then for an arbitrary vector $v \in V$, we have 
+\begin{align*}
+		\|S(v)\|^2 = \langle S(v), S(v) \rangle \\
+		=\langle S^*S(v), v \rangle \\
+		=\langle v, v \rangle \\
+		= \|v\|^2.
+\end{align*}
+So $S$ preserves norms, and so we have (4).
+
+Now assume (5), so $S^* = S^{-1}$, so $S^*$ is an isometry as the inverse of an isometry is an isometry. Now assume (6), so $(S^*)^* = S$ is an isometry, so we have (5).
 \end{proof}
 
 \end{document}
