@@ -735,7 +735,7 @@ This is actually just a stronger statement of Theorem ~\ref{thm:self-adjoint-rea
 		Now assume that $T$ is normal. By Schur's theorem we have an orthonormal basis $\mathcal{V} = \{e_1,e_2,\ldots,e_n\}$ with respect to which $\mathcal{M}(T)$ is upper-triangular. We claim that $\mathcal{M}(T)$ is actually diagonal. We show non-diagonal entry on every row is $0$. Assume by induction that this holds for the first $j$ rows. We have, by the normality of $T$, that
 		\begin{align*}
 				\|T(e_j)\|^2 = \|T^*(e_j)\|^2 \\
-				\|\mathcal{M}_{jj}\|^2 = \|\mathcal{M}_{jj}\|^2 + \|\mathcal{M}_{j(j+1)}\|^2 + \ldots +  \|\mathcal{M}_{jn}\|^2 
+				\|\mathcal{M}_{jj}\|^2 = \|\mathcal{M}_{jj}\|^2 + \|\mathcal{M}_{j(j+1)}\|^2 + \ldots +  \|\mathcal{M}_{jn}\|^2  \\`
 				0 = \|\mathcal{M}_{j(j+1)}\|^2 + \|\mathcal{M}_{j(j+2)}\|^2 + \ldots +  \|\mathcal{M}_{jn}\|^2 
 		\end{align*}
 		Hence all the non-diagonal entries on row $j+1$ are zero. So by induction the matrix is diagonal, and so the orthonormal basis consists entirely of eigenvectors.
@@ -920,6 +920,41 @@ This implies $S$ is bijective, and so $S^*$ is its inverse, and so $SS^* = S^*S 
 So $S$ preserves norms, and so we have (4).
 
 Now assume (5), so $S^* = S^{-1}$, so $S^*$ is an isometry as the inverse of an isometry is an isometry. Now assume (6), so $(S^*)^* = S$ is an isometry, so we have (5).
+\end{proof}
+
+\begin{thm}
+		Let $V$ be a finite dimensional complex inner product space and $S \in \mathcal{L}(V)$ an operator. Then $S$ is an isometry precisely when there is an orthonormal basis of $V$ of eigenvectors of $S$ with corresponding eigenvectors of magnitude $1$.
+\end{thm}
+
+\begin{proof}
+		First assume that $S$ is an isometry. Then $S$ and $S^*$ are isometries, so for an arbitrary $v \in V$, we have $\|S(v)\| = \|v\| = \|S^*(v)\|$, so $S$ is normal. So by the spectral theorem, we have an orthonormal basis $\mathcal{V} = \{e_1,e_2,\ldots,e_n\}$ of $V$ consisting of eigenvectors of $S$. Consider an arbitrary eigenvalue $\lambda$ of $S$, so we have for some non-zero $v \in V$, we have $T(v) = \lambda v$, which yields $|\lambda| = 1$ as $T$ is an isometry.
+
+		Now assume that there is an orthonormal basis $\mathcal{V} = \{e_1,e_2,\ldots,e_n\}$ of $V$ consisting of eigenvectors of $S$ with corresponding eigenvalues $\lambda_1,\lambda_2,\ldots,\lambda_n$ with magnitude $1$. So for an arbitrary vector $v \in V$, we have
+		\begin{align*}
+				\|S(v)\|^2 = \|S(\langle v, e_1 \rangle e_1 + \langle v, e_2 \rangle e_2 + \ldots + \langle v, e_n \rangle e_n)\|^2 \\
+				= \|\lambda_1 \langle v, e_1 \rangle e_1 + \lambda_2 \langle v, e_2 \rangle e_2 + \ldots + \lambda_n \langle v, e_n \rangle e_n\|^2 \\
+				= \|\lambda_1 \langle v, e_1 \rangle \|^2 + \|\lambda_2 \langle v, e_2 \rangle \|^2 + \ldots + \|\lambda_n \langle v, e_n \rangle \|^2 \\
+				= \|\langle v, e_1 \rangle \|^2 + \|\langle v, e_2 \rangle \|^2 + \ldots + \|\langle v, e_n \rangle \|^2 \\
+				= \|v\|^2
+		\end{align*}
+	Hence $S$ is an isometry.
+\end{proof}
+
+\subsection{Polar Decomposition and Singular Value Decomposition}
+
+\begin{defi} [Principal Square Root]
+		Let $V$ be a finite dimensional inner product space and $T \in \mathcal{L}(V)$ be a positive operator. Then we denote by $\sqrt T$ the unique positive square root of $T$.
+\end{defi}
+
+\begin{thm} [Polar Decomposition]
+		Let $V$ be a finite-dimensional vector space, and $T \in \mathcal{L}(V)$ an operator. Then for we have for some isometry $S$ 
+		\begin{align*}
+				T = S \sqrt{T^*T}
+		\end{align*}
+\end{thm}
+
+\begin{proof}
+				
 \end{proof}
 
 \end{document}
