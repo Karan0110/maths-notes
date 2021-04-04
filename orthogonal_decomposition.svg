@@ -13,7 +13,7 @@
    version="1.1"
    id="svg1619"
    inkscape:version="1.0.2 (1.0.2+r75+1)"
-   sodipodi:docname="orthogonal_projection.svg">
+   sodipodi:docname="orthogonal_decomposition.svg">
   <defs
      id="defs1613">
     <marker
@@ -261,12 +261,12 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:6.21439px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15536"
-       x="118.27256"
-       y="118.20162"
+       x="123.75185"
+       y="118.52991"
        id="text3366"><tspan
          id="tspan3364"
-         x="118.27256"
-         y="118.20162"
+         x="123.75185"
+         y="118.52991"
          style="stroke-width:0.15536"
          sodipodi:role="line">$u$</tspan></text>
     <text
@@ -283,12 +283,12 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:6.21439px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15536"
-       x="87.267662"
-       y="106.77011"
+       x="90.532791"
+       y="107.92918"
        id="text3366-7"><tspan
          id="tspan3364-5"
-         x="87.267662"
-         y="106.77011"
+         x="90.532791"
+         y="107.92918"
          style="stroke-width:0.15536"
          sodipodi:role="line">$\lambda u$</tspan></text>
     <text
@@ -305,12 +305,12 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:6.21439px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15536"
-       x="140.9754"
-       y="79.707886"
+       x="140.65918"
+       y="83.820213"
        id="text3366-35"><tspan
          id="tspan3364-62"
-         x="140.9754"
-         y="79.707886"
+         x="140.65918"
+         y="83.820213"
          style="stroke-width:0.15536"
          sodipodi:role="line">$w$</tspan></text>
   </g>

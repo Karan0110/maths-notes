@@ -60,7 +60,7 @@
 \end{proof}
 
 \begin{defi} [Linear Independence]
-		We say a finite set of vectors $\mathcal{V}$ is linearly independent iff it satisfies any of the equivalent conditions in theorem ~\ref{thm:equiv-lin-ind}.
+		We say a finite set of vectors $\mathcal{V}$ is linearly independent if it satisfies any of the equivalent conditions in theorem ~\ref{thm:equiv-lin-ind}.
 \end{defi}
 
 \begin{thm}
@@ -88,7 +88,7 @@
 As a trivial consequence of this, we have that any two bases have the same cardinality as their cardinalities bound eachother above and below as a basis is simultaeneously a spanning set and a linearly independent set. So we may call this invariant quantity the "dimension" of the vector space. However there is a caveat, namely that this assumes that there is a basis at all. When we extend our defintions to inlcude the idea of a linear combination of an infinite set as mentioned in footnote ~\ref{infinite-linear-combinations} it may be shown that every vector space has a basis (this is a trivial consequence of Zorn's lemma when we view a basis as a maximal linearly independent set)
 
 \begin{defi} [Finite-Dimensional Vector Spaces]
-		The vector space $V$ is finite dimensional iff it has a basis.
+		The vector space $V$ is finite dimensional if it has a basis.
 		If $V$ is finite dimensional, then we call the common cardinality of all of its bases the dimension of $V$, $\dim V$.
 \end{defi}
 
@@ -99,7 +99,7 @@ As a trivial consequence of this, we have that any two bases have the same cardi
 The structure of a vector space is given by the operations of addition and scalar multiplication, so those maps between vector spaces which preserve this structure will be of interest. In the context of linear algebra, we call a homomorphism a linear map.
 
 \begin{defi} [Linear Map]
-		Let $V$ and $W$ be $k$-vector spaces. The function $T: V \to W$ is a linear map iff it satisfies
+		Let $V$ and $W$ be $k$-vector spaces. The function $T: V \to W$ is a linear map if it satisfies
 		\begin{enumerate}
 				\item $T(u + v) = T(u) + T(v)$ for all $u, v \in V$.
 				\item $T(\lambda v) = \lambda T(v)$ for all $\lambda \in k$ and $v \in V$.
@@ -212,7 +212,7 @@ We may better better understand an operator on $V$ by instead considering how it
 The simplest case is when the subspace has dimension $1$, in which case it is the span of some non-zero vector $v$, and so it must be the case that $T(v) = \lambda v$ for some $\lambda \in k$. When this is the case we call $v$ an eigenvector and $\lambda$ its corresponding eigenvalue. Whilst every eigenvector may of course only correspond to a single eigenvalue, the converse does not hold, indeed the eigenvectors of a specfic eigenvalue (which, alongside $0$, trivially form a subspace) need not even have dimension $1$.
 
 \begin{defi}
-		Let $T \in \mathcal{V}$. Then $\lambda \in k$ is an eigenvalue iff any of the following equivalent criteria hold
+		Let $T \in \mathcal{V}$. Then $\lambda \in k$ is an eigenvalue if any of the following equivalent criteria hold
 		\begin{enumerate}
 				\item We have some non-zero $v \in V$ such that $T(v) = \lambda v$ 
 				\item $T - \lambda I$ is not injective.
@@ -264,7 +264,7 @@ As these eigenvalues are helpful in understanding the behaviour of an operator, 
 \subsection{Upper Triangular Matrices}
 
 \begin{defi} [Upper Triangular Matrix]
-		We say a square matrix is upper triangular iff all entries under the diagonal are $0$.
+		We say a square matrix is upper triangular if all entries under the diagonal are $0$.
 \end{defi}
 
 If we consider an operator $T \in \mathcal{L}(V)$, we may express the condition of upper-triangularity of $\mathcal{M}(T, \mathcal{V})$ in terms of the operator. Say $\mathcal{V} = \{v_1, v_2, \ldots, v_n\}$, then it is trivial to see that upper triangularity is equivalent to each $T(v_j)$ belonging to the span of $\{v_1, v_2, \ldots, v_j\}$.
@@ -308,7 +308,7 @@ If we consider an operator $T \in \mathcal{L}(V)$, we may express the condition 
 A key aspect of the structure of the classical examples of vector spaces such as Euclidean space which we have not generalised is the notion of the dot product, whose key aspect is that it allows fora notion of angles between vectors, and most importantly the idea that vectors are orthogonal. We may generalise this idea into the inner product of a vector space, however we will only do so for $\R$ and $\C$ vector spaces.
 
 \begin{defi} [Inner Product]
-	Let $V$ be an $\R$ or $\C$ vector space. Then we say a mapping $<.,.>: V^2 \to k$ is an inner product iff it satisfies all of the following
+	Let $V$ be an $\R$ or $\C$ vector space. Then we say a mapping $<.,.>: V^2 \to k$ is an inner product if it satisfies all of the following
 	\begin{enumerate}
 			\item $\langle v, v \rangle \geq 0$ for all $v \in V$ (non-negativity)
 			\item $\langle v, v \rangle = 0$ iff $v = 0$ (definiteness)
@@ -321,7 +321,7 @@ A key aspect of the structure of the classical examples of vector spaces such as
 \end{defi}
 
 \begin{defi} [Orthogonality]
-	Let $V$ be an inner product space. We say $u,v \in V$ are orthogonal iff $\langle u, v \rangle = 0$.
+	Let $V$ be an inner product space. We say $u,v \in V$ are orthogonal if $\langle u, v \rangle = 0$.
 \end{defi}
 
 \begin{defi} [Norm]
@@ -399,7 +399,7 @@ We call this expression an orthogonal decomposition of $v$ with respect to $u$. 
 \subsection{Orthonormal Bases}
 
 \begin{defi} [Orthonormal Set]
-		Let $V$ be an inner product space, and $\mathcal{V}$ a finite set of vectors in $V$. Then we say $\mathcal{V}$ is orthonormal iff all of its elements have norm $1$ and are pairwise orthogonal.
+		Let $V$ be an inner product space, and $\mathcal{V}$ a finite set of vectors in $V$. Then we say $\mathcal{V}$ is orthonormal if all of its elements have norm $1$ and are pairwise orthogonal.
 \end{defi}
 
 Orthonormal sets behave quite nicely. This is due mainly to the fact that the norm of a linear combination is the sum of squares of the absolute values of the scalars by repeated applications of Pythagoras and that we may "extract" any scalar in a linear combination by taking the inner product with the corresponding vector.
@@ -616,11 +616,11 @@ Whilst our definition of the adjoint seems rather abstract and complicated, it h
 From here we restrict our attention to operators, as it is in the context of operators that the domain and range coincide. So a mapping may equal its own transpose, and we may consider the product of an operator with its transpose. This allows us to consider the notion of normal and self-adjoint operators.
 
 \begin{defi} [Self-Adjoint]
-		Let $V$ be a finite-dimensional inner product space. We say the operator $T \in \mathcal{L}(V)$ is self-adjoint iff $T = T^*$.	
+		Let $V$ be a finite-dimensional inner product space. We say the operator $T \in \mathcal{L}(V)$ is self-adjoint if $T = T^*$.	
 \end{defi}
 
 \begin{defi} [Normal Operator]
-		Let $V$	be a finite-dimensional inner product space. We say the operator $T \in \mathcal{L}(V)$ is normal iff $TT^* = T^*T$.
+		Let $V$	be a finite-dimensional inner product space. We say the operator $T \in \mathcal{L}(V)$ is normal if $TT^* = T^*T$.
 \end{defi}
 
 Of course all self-adjoint operators are normal, so normality is a weaker condition. Whilst the criteria for normality and self-adjointedness may seem arbitrary and of little interest, they turn out to lead to extremely nice properties. 
@@ -801,11 +801,11 @@ This is actually just a stronger statement of Theorem ~\ref{thm:self-adjoint-rea
 \subsection{Positive Operators and Isometries}
 
 \begin{defi} [Positive Operators]
-		We say an operator $T \in \mathcal{L}(V)$ is positive iff $T$ is self-adjoint and $\langle T(v), v \rangle \geq 0$ for all $v \in V$.
+		We say an operator $T \in \mathcal{L}(V)$ is positive if $T$ is self-adjoint and $\langle T(v), v \rangle \geq 0$ for all $v \in V$.
 \end{defi}
 
 \begin{defi} [Square Root]
-		We say an operator $R \in \mathcal{L}(V)$ is a square root of the operator $T \in \mathcal{L}(V)$ iff $R^2 = T$.
+		We say an operator $R \in \mathcal{L}(V)$ is a square root of the operator $T \in \mathcal{L}(V)$ if $R^2 = T$.
 \end{defi}
 
 \begin{thm} 
@@ -867,7 +867,7 @@ This is actually just a stronger statement of Theorem ~\ref{thm:self-adjoint-rea
 \end{proof}
 
 \begin{defi} [Isometry]
-		Let $V$ be an inner product space, and $T \in \mathcal{L}(V)$ be an operator on $V$. Then $T$ is an isometry iff it preserves norms.
+		Let $V$ be an inner product space, and $T \in \mathcal{L}(V)$ be an operator on $V$. Then $T$ is an isometry if it preserves norms.
 \end{defi}
 
 \begin{thm}
@@ -954,8 +954,211 @@ Now assume (5), so $S^* = S^{-1}$, so $S^*$ is an isometry as the inverse of an 
 \end{thm}
 
 \begin{proof}
-				
+		We will construct the desired isometry by defining it on $\sqrt{T^*T}(V)$ and $(\sqrt{T^*T}(V))^{\perp}$, which will determine it on $V$ as $V = \sqrt{T^*T}(V) \oplus (\sqrt{T^*T}(V))^{\perp}$.
+
+		We define $S_1$ on $\sqrt{T^*T}(V)$ by 
+		\begin{align*}
+				S_1(\sqrt{T^*T}(v)) = T(v)
+		\end{align*}
+		It trivally follows that $S_1$ is a well-defined linear map that preserves norms.
+
+		Clearly $S_1$ is bijective, hence we have $\dim(\sqrt{T^*T}(V))^{\perp} = \dim(T(V))^{\perp} = n$. So let $\{e_1,e_2,\ldots,e_n\}$ and $\{f_1,f_2,\ldots,f_n\}$ be orthnormal bases of $(\sqrt{T^*T}(V))^{\perp}$ and $(T(V))^{\perp}$, respectively. We may now define $S_2$ on $(\sqrt{T^*T}(V))^{\perp}$ by 
+		\begin{align*}
+				S_2(e_j) = f_j
+		\end{align*}
+		This is also trivally an isometry.
+
+		We now define $S$ as the unique operator that coheres with $S_1$ and $S_2$ on their respective domains. For an arbitrary $v \in V$, we may write $v = u + w$ for $u \in \sqrt{T^*T}(V)$ and $w \in (\sqrt{T^*T}(V))^{\perp}$, so we have
+		\begin{align*}
+				\|S(v)\|^2 = \|S(u) + S(w)\|^2 \\
+				= \|S(u)\|^2 + \|S(w)\|^2 \\
+				= \|u\|^2 + \|w\|^2 \\
+				= \|u + w\|^2 \\
+				= \|v\|^2
+		\end{align*}
 \end{proof}
+
+\begin{defi} [Singular Value]
+		Let $T \in \mathcal{L}(V)$ be an operator on $V$. Then the singular values of $T$ are the eigenvalues of $\sqrt{T^*T}$, repeated $\dim E(\lambda, \sqrt{T^*T})$ times.	
+\end{defi}
+
+The singular values are useful over the eigenvalues in particular as they always correspond to an orthnormal basis of eigenvectors, as $\sqrt{T^*T}$ is self-adjoint, whilst $T$ is not necessarily even normal.
+
+\begin{thm} [Singular Value Decomposition]
+		Let $T \in \mathcal{L}(V)$ be an operator with singular values $s_1,s_2,\ldots,s_n$. Then there are orthnormal bases $\mathcal{V}_1 = \{e_1,e_2,\ldots,e_n\}$ and $\mathcal{V}_2 = \{f_1,f_2,\ldots,f_n\}$ such that for all $v \in V$ we have 
+		\begin{align*}
+				T(v) = s_1 \langle v, e_1 \rangle f_1 + s_2 \langle v, e_2 \rangle f_2 + \ldots + s_n \langle v, e_n \rangle f_n.
+		\end{align*}
+\end{thm}
+
+\begin{proof}
+		By polar decomposition, we have an isometry $S$ such that $T = S \sqrt{T^*T}$.
+
+		Let $\mathcal{V}_1$ be an orthonormal basis of eigenvectors $\sqrt{T^*T}$. Then $\mathcal{V}_2 = S(\mathcal{V}_1)$ is an orthonormal basis, as $S$ is an isometry. So we have for an arbitrary $v \in V$ that
+		\begin{align*}
+				v = \langle v, e_1 \rangle e_1 + \langle v, e_2 \rangle e_2 + \ldots + \langle v, e_n \rangle e_n \\
+				\sqrt{T^*T}(v) = s_1 \langle v, e_1 \rangle e_1 + s_2 \langle v, e_2 \rangle e_2 + \ldots + s_n \langle v, e_n \rangle e_n \\
+				S\sqrt{T^*T}(v) = s_1 \langle v, e_1 \rangle S(e_1) + s_2 \langle v, e_2 \rangle S(e_2) + \ldots + s_n \langle v, e_n \rangle S(e_n) \\
+				T(v) = s_1 \langle v, e_1 \rangle f_1 + s_2 \langle v, e_2 \rangle f_2 + \ldots + s_n \langle v, e_n \rangle f_n
+		\end{align*}
+\end{proof}
+
+The significance of this result is that we may always have a diagonal matrix with respect to some orthonormal bases for an operator, but given that the bases are not necessarily identical.
+
+\section{Operators on Complex Vector Spaces}
+
+\subsection{Generalised Eigenvectors}
+
+\begin{thm}
+		Let $T \in \mathcal{L}(V)$ be an operator. Then we have that
+		\begin{align*}
+				\ker(T^0) \subset \ker(T^1) \subset \ker(T^2) \subset \ldots
+		\end{align*}
+\end{thm}
+
+\begin{proof}
+		For any nonnegative integer $k$, we have
+		\begin{align*}
+				T^{k+1}(\ker(T^k)) = T(T^k(\ker(T^k))) \\
+				= T(\{0\}) \\
+				= \{0\}
+		\end{align*}
+\end{proof}
+
+\begin{thm}
+		If $\ker(T^k) = \ker(T^{k+1})$, then we have
+		\begin{align*}
+				\ker(T^k) = \ker(T^{k+1}) = \ker(T^{k+2}) = \ldots
+		\end{align*}
+\end{thm}
+
+\begin{proof}
+		Consider an arbitrary $v \in \ker(T^{k+2})$, then we have
+		\begin{align*}
+				T^{k+1}T(v) = 0 \\
+				T(v) \in \ker(T^{k+1}) \\
+				T(v) \in \ker(T^k) \\
+		T^{k+1}(v) = 0 \\
+				v \in \ker(T^{k+1})
+		\end{align*}
+		So we have $\ker(T^{k+2}) \subset \ker(T^{k+1})$, and also the reverse subset relation. Hence we have that the kernels are equal, and so by induction the desired chain of equalities.
+\end{proof}
+
+\begin{thm}
+		Let $n$ be the dimension of the vector space $V$, and $T \in \mathcal{L}(V)$ an operator on $V$. Then we have
+		\begin{align*}
+				\ker(T^n) = \ker(T^{n+1)}) = \ker(T^{n+2}) = \ldots
+		\end{align*}
+\end{thm}
+
+\begin{proof}
+		Assume the contrary, then we have that
+		\begin{align*}
+				\{0\} = \ker(T^0) \subsetneq \ker(T^1) \subsetneq \ldots \subsetneq \ker(T^n) \subsetneq \ker(T^{n+1})
+		\end{align*}
+		Then this would imply that $\dim \ker(T^{n+1}) \geq n + 1$, which is impossible as its a subspace of $V$.
+\end{proof}
+
+As a consequence of the Fundemental Theorem of Linear Maps, we have that $\dim V = \dim \ker(T) + \dim T(V)$ for any operator $T \in \mathcal{L}(V)$. So if the sum were direct, then it would be a direct sum decomposition of $V$. However this is not necessarily the case, for example the operator $T(x,y,z) = (y,z,0)$ on $\R^3$. However as the next result shows, we may do so for a power of an operator.
+
+\begin{thm}
+		Let $n$ be the dimension of the vector space $V$, and $T \in \mathcal{L}(V)$ an operator on $V$. Then we have
+		\begin{align*}
+				V = \ker(T^{n}) \oplus T^n(V)
+		\end{align*}
+\end{thm}
+
+\begin{proof}
+		We claim the terms are disjoint. Consider an arbitrary vector $v \in V$ in their intersection. Then we have for some $u \in V$ that $T^n(u) = v$, and $T^n(v) = 0$. So we have $T^{2n}(u) = 0$, which implies $v = T^n(u) = 0$, as the kernels eventually stop growing. So they are indeed disjoint, as so the sum is direct.
+
+		By the fundemental theorem of linear maps, we have that $n = \dim \ker (T^n) + \dim T^n(V)$, so the direct sum is $V$.
+\end{proof}
+
+\begin{defi} [Generalised Eigenvector]
+		Let $T \in \mathcal{L}(V)$ be an operator. Then we say a non-zero vector $v \in V$ is a generalised eigenvector of $T$ with corresponding eigenvalue $\lambda$ if $v$ belongs to the kernel of $(T - \lambda I)^{j}$ for some nonnegative integer $j$.	
+
+		We let the generalised eigenvectors with corresponding eigenvalue $\lambda$ along with $0$ be the generalised eigenspace, $G(\lambda, T)$
+\end{defi}
+
+\begin{thm}
+		Let $T \in \mathcal{L}(V)$ be an operator and $\mathcal{V} = \{v_1,v_2,\ldots,v_m\}$ generalised eigenvectors with pairwise distinct eigenvalues $\lambda_1,\lambda_2,\ldots,\lambda_m$. Then $\mathcal{V}$ is linearly independent.
+\end{thm}
+
+\begin{proof}
+		Let $j$ be the largest integer such that $(T-\lambda_1 I)^j(v_1) = w$ is non-zero. So we have that $w$ is an eigenvector of $T$ with eigenvalue $\lambda_1$. 
+
+		Now consider an arbitrary zero linear combination of $\mathcal{V}$ 
+		\begin{align*}
+				a_1 v_1 + a_2 v_2 + \ldots + a_n v_n = 0
+		\end{align*}
+		Applying the operator $(T-\lambda_1 I)^j (T-\lambda_2 I)^n (T - \lambda_3 I)^n \ldots (T - \lambda_m I)^n$ then yields
+		\begin{align*}
+				a_1 (\lambda_1 - \lambda_2)^n (\lambda_1 - \lambda_3)^n \ldots (\lambda_1 - \lambda_m)^n w = 0
+		\end{align*}
+		As all the eigenvalues are pairwise distinct and $w \neq 0$, we have that $a_1 = 0$. By similar logic we have all the other scalars are $0$.
+\end{proof}
+
+As already established, the kernels of powers of an operator form an ascending chain under the $\subset$ relation which, in the case of finite-dimensional vector spaces, eventually becomes constant.
+
+So it is interesting to ask what space does this chain terminate on, the two obvious interesting special cases are when the chain is eventually $\{0\}$ and $V$. 
+
+In the former case this is characteristic of bijective operators, however the latter case corresponds to an operator that is $0$ when raised to a sufficiently high power. We will call these operators nilpotent.
+
+\begin{defi} [Nilpotent Operator]
+		We say the operator $T \in \mathcal{L}(V)$ is nilpotent if $T^j = 0$ for some nonnegative integer $j$.
+\end{defi}
+
+\begin{thm}
+		Let $N \in \mathcal{L}(V)$ be a nilpotent operator. Then there is a basis of $V$ with respect to which the matrix of $N$ is upper triangular with all diagonal entries $0$.
+\end{thm}
+
+\begin{proof}
+		The kernel of powers of an operator form an ascending chain under the $\subset$ relation, and if there is ever equality then all proceeding terms are equal. Since the sequence corresponding to a nilpotent operator eventually has dimension $n$, we must have that $\dim \ker(N^j) \geq j$ for all $0 \leq j \leq n$. 
+		
+		This means we may choose a basis $\mathcal{V} = \{v_1,v_2,\ldots,v_n\}$ such that each $v_j \in \ker(N^j)$. For any $j$, we have $N(v_j) \in \ker(N^{j-1})$, which is spanned by $v_1,v_2,\ldots,v_{j-1}$. So the matrix has the desired form.
+\end{proof}
+
+In the case of a complex vector space, this can also be shown using the fact that every operator has a basis such that the matrix is upper-triangular, and the diagonal entries are eigenvalues, and in the case of a nilpotent operator all eigenvalues must be $0$. However this would not be valid for spaces over arbitrary fields as not every operator over a general field need have an eigenvalue.
+
+\subsection{Decomposition of an Operator}
+
+\begin{thm}
+		Let $V$ be a complex vector space and $T \in \mathcal{L}(V)$ be an operator on $V$, whose distinct eigenvalues are $\lambda_1, \lambda_2, \ldots, \lambda_m$. Then we have
+		\begin{align*}
+				V = G(\lambda_1, T) \oplus G(\lambda_2, T) \oplus \ldots \oplus G(\lambda_m, T)	
+		\end{align*}
+\end{thm}
+
+\begin{proof}
+		We show this by induction on the dimension of $V$. As $V$ is a complex vector space, we have that $m \geq 1$, so $V = \ker(T - \lambda_1 I)^n \oplus (T - \lambda_1 I)^n(V)$. Hence we have
+		\begin{align*}
+				V = G(\lambda_1, T) \oplus U
+		\end{align*}
+		Where $U = (T - \lambda_1 I)^n(V)$. By induction, we have that
+		\begin{align*}
+				U = G(\lambda_2, T|_U) \oplus \ldots \oplus G(\lambda_m, T|_U)
+		\end{align*}
+		It is trivial that $G(\lambda_j, T|_U) \subset G(\lambda_j, T)$. Now consider an arbitrary $v \in G(\lambda_j, T) \subset V$. Then we have for unique $v_1 \in G(\lambda_1, T), v_2 \in G(\lambda_2, T|_U) \subset G(\lambda_2, T), \ldots, v_m \in G(\lambda_m, T|_U) \subset G(\lambda_m, T)$ that
+		\begin{align*}
+			v = v_1 + v_2 + \ldots + v_m \\
+			v_1 + v_2 + \ldots + (v_j - v) + \ldots + v_m = 0 
+		\end{align*}
+		By linear independence of generalised eigenvectors with distinct eigenvalues, every term is $0$. In particular, we have $v = v_j \in G(\lambda_j, T|_U$, so we have $G(\lambda_j, T) \subset G(\lambda_j, T|_U)$, so they are equal.
+
+		Hence we have that $U = G(\lambda_2, T) \oplus G(\lambda_3, T) \oplus \ldots \oplus G(\lambda_m, T)$, yielding the desired direct sum decomposition.
+\end{proof}
+
+In particular this means that for any operator we have a basis consiting of generalised eigenvectors. 
+
+\begin{defi} [Multiplicity of an Eigenvalue]
+		Let $\lambda$ be an eigenvalue of an operator $T \in \mathcal{L}(V)$. Then we call the dimension of the generalised eigenspace the algebraic multplicity and the dimension of the eigenspace the geometric multplicity. 
+
+		In these notes when we use the term multiplicity unqualified we refer to the algebraic multiplicity.
+\end{defi}
+
+\begin{defi} [Block Diagonal Matrix]
+	We say a square matrix is block diagonal if all of its entries are zero except square matrices along the diagonal.
+\end{defi}
 
 \end{document}
 

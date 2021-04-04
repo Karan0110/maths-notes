@@ -1,6 +1,6 @@
 %% Creator: Inkscape 1.0.2 (1.0.2+r75+1), www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
-%% Accompanies image file 'orthogonal_projection.pdf' (pdf, eps, ps)
+%% Accompanies image file 'orthogonal_decomposition.pdf' (pdf, eps, ps)
 %%
 %% To include the image in your LaTeX document, write
 %%   \input{<filename>.pdf_tex}
@@ -53,10 +53,10 @@
   \begin{picture}(1,0.7047619)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
-    \put(0,0){\includegraphics[width=\unitlength,page=1]{orthogonal_projection.pdf}}%
-    \put(0.56320267,0.14189704){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$u$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{orthogonal_decomposition.pdf}}%
+    \put(0.58929451,0.14033378){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$u$\end{tabular}}}}%
     \put(0.38235394,0.36609199){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$v$\end{tabular}}}}%
-    \put(0.4155603,0.1963328){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\lambda u$\end{tabular}}}}%
-    \put(0.67131144,0.32520054){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$w$\end{tabular}}}}%
+    \put(0.43110853,0.19081345){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\lambda u$\end{tabular}}}}%
+    \put(0.66980562,0.30561803){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$w$\end{tabular}}}}%
   \end{picture}%
 \endgroup%
