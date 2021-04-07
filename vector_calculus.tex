@@ -1,0 +1,404 @@
+\documentclass[]{article}
+
+\input{header}
+
+\title{Vector Calculus}
+\author{Karan Elangovan}
+
+\begin{document}
+
+\maketitle
+
+\doublespacing
+\tableofcontents
+
+\section{Preface}
+
+In these notes we approach the topic from a strongly applied, physical perspective. 
+
+Hence we restrict our focus exclusively to the real vector space $\R^3$ (and occasionally $\R^2$ when stated expliclty), and will frequently make imprecise intuitionistic arguments such as those involving the use of infinitesmals which will only hold for sufficiently "well-behaved" functions
+
+This is acceptable however, as the physical phenomena which we aim to model with these techiniques will never give rise to pathological functions and regions.
+
+Additionally, we will always be using suffix notation unless explicitly specified otherwise.
+
+\section{Vectors in Euclidean Space}
+
+\subsection{Vectors}
+
+We will denote the standard basis of $\R^3$ by $\mathbf{e_1}, \mathbf{e_2}, \mathbf{e_3}$ and for any vector $\mathbf{v}$, we denote its components in the standard basis as $v_1,v_2,v_3$.
+
+\subsection{The Dot and Cross Product}
+
+\begin{defi} [Dot Product]
+		Given vectors $\mathbf{u}$ and $\mathbf{v}$, we define their dot product as
+		\begin{align*}
+				\mathbf{u} \cdot \mathbf{v} = \|\mathbf{u}\| \|\mathbf{v}\| \cos\theta
+		\end{align*}
+		Where $\theta$ is the angle between the vectors.
+\end{defi}
+
+Geometrically the dot product corresponds to the length of the projection of $\mathbf{u}$ on $\mathbf{v}$ multiplied by the length of $\mathbf{v}$ or vice-versa. In particular when one of the vectors is a unit vector, the dot product is the length of a projection.
+
+It is trivially verified that this dot product satisfies all of the axioms for an inner product over a real vector space. Indeed this is just the Euclidean inner product as it agrees with it on the standard basis.
+
+So this means that we have the equivalent definition of the dot product as 
+\begin{align*}
+		\mathbf{u} \cdot \mathbf{v} = u_i v_i
+\end{align*}
+
+\begin{defi} [Cross Product]
+	Given vectors $\mathbf{u}$ and $\mathbf{v}$, we define their cross product as 
+	\begin{align*}
+			\mathbf{u} \times \mathbf{v} = \|\mathbf{u}\| \|\mathbf{v}\| \sin\theta \mathbf{n}
+	\end{align*}
+	Where $\theta$ is the angle between the vectors and $\mathbf{n}$ is a unit normal vector in the right handed orientation with respect to $\mathbf{u}$ and $\mathbf{v}$.
+\end{defi}
+
+Geometrically the cross product corresponds to a vector perpendicular to both $\mathbf{u}$ and $\mathbf{v}$ with length equal to the area of the pallelogram spanned by $\mathbf{u}$ and $\mathbf{v}$, whose orientation corresponds to the right hand rule.
+
+A trivial consequence of this right-hand rule is that the cross-product must be anti commutative.
+
+It also follows geometrically that the cross-product is distributive, as demonstrated in Figure ~\ref{fig:distributive-cross-product}
+
+\begin{figure}[ht]
+\centering
+\incfig{distributive_cross_product}
+\caption{The vector $\mathbf{a}$ points into the page and $\mathbf{b}$ and $\mathbf{c}$ are not necessarily parallel to the page. The act of crossing with $\mathbf{a}$ then corresponds to projecting the vector onto the page and then rotating by a right angle and scaling by  $\|\mathbf{a}\|$. }
+\label{fig:distributive-cross-product}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\incfig{cross_product_determinant}
+\caption{Illustration of the connection between the mapping $f$ and the cross product $\mathbf{u} \times \mathbf{v}$}
+\label{fig:cross-product-determinant}
+\end{figure}
+
+We now derive an alternative form for the cross product that is more conduicive to computation. We consider the mapping $f: \R^3 \to \R$ defined by 
+\begin{align*}
+		f(\mathbf{a}) = \begin{vmatrix}
+				a_1 & u_1 & v_1 \\
+				a_2 & u_2 & v_2 \\
+				a_3 & u_3 & v_3 \\
+		\end{vmatrix}	
+\end{align*}
+Geometrically, $f(\mathbf{a})$ is the signed volume of the parallelepiped spanned by $\mathbf{a}, \mathbf{u}, \mathbf{v}$. Considering Figure ~\ref{fig:cross-product-determinant}, we see we have 
+\begin{align*}
+		f(\mathbf{a}) = (\mathbf{a} \cdot \mathbf{n}) \|\mathbf{u}\|\|\mathbf{v}\|\sin\theta  \\
+		= \mathbf{a} \cdot (\mathbf{u} \times \mathbf{v})
+\end{align*}
+
+So by taking $\mathbf{a}$ as the vectors of the standard basis we may "extract" the coordinates of the cross product. Due to the linearity of the determinant with respect to each column and its invariance under transpositions, we have the following expression for the cross product, where we understand the vector entries are to be treated as though they were scalars in terms of multiplying out (this is a purely mneumonic construction, having no actual physical significance)
+
+\begin{align*}
+		\mathbf{u} \times \mathbf{v} = \begin{vmatrix}
+				\mathbf{e_1} & \mathbf{e_2} & \mathbf{e_3} \\
+				u_1 & u_2 & u_3 \\
+				v_1 & v_2 & v_3 \\
+		\end{vmatrix}	
+\end{align*}
+
+By expanding out the determinant, we may yield an alternative formula for the cross product that is extremely useful for manipulations involving suffix notation.
+
+\begin{align*}
+		(\mathbf{u} \times \mathbf{v})_i = \epsilon_{ijk} u_j v_k
+\end{align*}
+
+\subsection{Combinations of Dot and Cross Product}
+
+We say the scalar triple product of three vectors is $\mathbf{a} \cdot \mathbf{b} \times \mathbf{c}$. Geometrically this corresponds to the signed volume of the parallelepiped spanned by the vectors. So the value of the scalar triple product is invariant up to sign for any permutation of the vectors. Indeed by the right hand rule, even permutations preserve sign whilst odd permutations switch sign.
+
+We also see this analytically as we have
+
+\begin{align*}
+		\mathbf{a} \cdot \mathbf{b} \times \mathbf{c} = a_i (\mathbf{b} \times \mathbf{c})_i \\
+		= a_i \epsilon_{ijk} b_j c_k \\
+		= \epsilon_{ijk} a_i b_j c_k
+\end{align*}
+
+We also define the vector triple product as $\mathbf{a} \times (\mathbf{b} \times \mathbf{c})$. We may manipulate this into a much nicer form as so
+\begin{align*}
+		(\mathbf{a} \times (\mathbf{b} \times \mathbf{c}))_i = \epsilon_{ijk} a_j (\mathbf{b} \times \mathbf{c})_k \\
+		= \epsilon_{ijk} \epsilon_{klm} a_j b_l c_m \\
+		= (\delta_{il} \delta_{jm} - \delta_{im} \delta_{jl}) a_j b_l c_m \\
+		= a_m b_i c_m - a_l b_l c_i \\
+		= ((\mathbf{a} \cdot \mathbf{c}) \mathbf{b} - (\mathbf{a} \cdot \mathbf{b}) \mathbf{c})_i
+\end{align*}
+There is also a fairly simple geometric derivation which we omit.
+
+\section{Gradient, Divergence and Curl}
+
+\subsection{The Nabla Operator}
+
+Throughout our treatment of the gradient, divergence and curl, it turns out to be extremely useful notationally to define the nabla as follows
+\begin{align*}
+		\nabla = \left(\frac{\partial}{\partial x_1}, \frac{\partial}{\partial x_2}, \frac{\partial}{\partial x_3} \right)
+\end{align*}
+Where we only define it as meaningful when used alongside a scalar or vector field.
+
+When we treat multplication as application of the partial derviative, the nabla behaves essentially the same as a normal vector algebraically, with a key distinction: it does not commute in general. Of course it does commute with constants however.
+
+\subsection{Gradient of a Scalar Field}
+
+Given a scalar field, $\phi$, the rate of change depends on the direction we are changing the position in. 
+
+However we may encode all of the directional derivatives in a vector quantity, the gradient of $\phi$, whose components are the changes in that direction. 
+
+So we have the gradient of $\phi$ as 
+\begin{align*}
+		\left(\frac{\partial \phi}{\partial x_1}, \frac{\partial \phi}{\partial x_2}, \frac{\partial \phi}{\partial x_3}\right) = \nabla \phi
+\end{align*}
+
+In this way we may find the derivative of $\phi$ in the direction of the unit vector $\mathbf{n}$ as $\mathbf{n} \cdot \nabla \phi$. 
+
+When $\mathbf{n}$ is actually parallel to $\nabla \phi$, then we actually get the magnitude of $\nabla \phi$, so the gradient itself corresponds to the direction of greatest increase.
+
+When $\mathbf{n}$ is perpendicular to the gradient, the rate of change must be $0$, so this means that the gradient vector is normal to the isosurface through any given point. This is particularly useful when trying to find the normal to a surface, as we may just consider a scalar field of which the surface of consideration is an isosurface.
+
+We may also consider the other way around. That is, for which vector fields, $\mathbf{u}$, is there a scalar field $\phi$ such that $\mathbf{u} = \nabla \phi$? 
+
+When such a scalar field exists we call it a potential field of $\mathbf{u}$. Of course when $\phi$ exists, it will not be unique, as $\phi + c$  where $c$ is a constant will also be a potential field.
+
+\begin{thm}
+		The vector field $\mathbf{u}$ has a potential field on a region $D$ precisely when it is conservative on $D$.
+\end{thm}
+
+\begin{proof}
+		First assume that $\mathbf{u}$ has a potential field, $\phi$. Then $\mathbf{u} = \nabla \phi$, and so for any curve $C$ from points $A$ to $B$, we have
+		\begin{align*}
+				\int_C \mathbf{u} \cdot d\mathbf{r} = \int_C \nabla \phi \cdot d\mathbf{r} \\
+				= \phi(B) - \phi(A)
+		\end{align*}
+		Which is independent of the path between $A$ and $B$, so $\mathbf{u}$ is conservative.
+
+		Conversely if $ \mathbf{u}$ is conservative on $D$, then choosing some point $\mathbf{p}$ in $D$, we may define the scalar field 
+		\begin{align*}
+				\phi = \int_\mathbf{p}^\mathbf{r} \mathbf{u} \cdot d\mathbf{r}
+		\end{align*}
+		This is well-defined as by conservatism the integral is independent of path. Hence we have
+		\begin{align*}
+				(\nabla \phi)_i = \frac{\partial}{\partial x_i} \int_\mathbf{p}^\mathbf{r} \mathbf{u} \cdot d \mathbf{r} \\
+				= u_i
+		\end{align*} 
+		So $\phi$ is the desired potential field.
+\end{proof}
+
+\subsection{Divergence of a Vector Field}
+
+\begin{defi} [Divergence]
+		Let $\mathbf{u}$ be a vector field. Then we define the divergence as 
+		\begin{align*}
+				\text{div}(\mathbf{u}) = \lim_{\delta V \to 0} \frac{1}{\delta V} \oiint_{\delta S} \mathbf{u} \cdot \mathbf{n} dS	
+		\end{align*}
+		Where $\delta V$ is a small volume containing $\mathbf{r}$ and $\delta S$ is the surface of $\delta V$.
+\end{defi}
+
+Intuitively this corresponds to the flux per unit volume at a specific point. For the sake of computation of the divergence, we derive an alternative form, by considering a cube of side length $\delta$ with center $\mathbf{r}$ aligned with the coordinate axes. 
+
+Consider the contribution of the 2 faces perpendicular to $\mathbf{e_1}$ to the surface integral. As we are considering small $\delta$, we may take the flux at the center of the faces as $\mathbf{u} \pm \frac{\delta}{2} \frac{\partial \mathbf{u}}{\partial x_1}$, and assume the flux is equal to this throughout the 2 faces. So we have their contribution to the surface integral as 
+\begin{align*}
+		\delta^2 \left(\mathbf{e_1} \cdot \left(\mathbf{u} + \frac{\delta}{2} \frac{\partial \mathbf{u}}{\partial x_1}\right) - \mathbf{e_1} \cdot \left(\mathbf{u} - \frac{\delta}{2} \frac{\partial \mathbf{u}}{\partial x_1}\right)\right)
+	= \delta^3 \frac{\partial \mathbf{u}}{\partial x_1}
+\end{align*}
+Obtaining similar expressions for the reminaing 4 faces yields the expression in the limit as 
+\begin{align*}
+		\frac{1}{\delta^3} (\delta^3 \nabla_i u_i) = \nabla \cdot \mathbf{u}
+\end{align*}
+
+So we may think of points at which the divergence is positive as "sources" of flux and those where the diveregence is negative as "sinks". 
+
+Those points where the divergence is zero are then "preserving" the flux. We call those fields where the divergence is zero everywhere solenoidal.
+
+\subsection{Curl of a Vector Field}
+
+\begin{defi} [Curl]
+		Let  $\mathbf{u}$ be a vector field. Then the curl of $u$ is the vector field satisfying for every unit vector $\mathbf{n}$
+		\begin{align*}
+				\mathbf{n} \cdot \text{curl}(\mathbf{u}) = \lim_{\delta S \to 0} \frac{1}{\delta S} \oint_{\delta C} \mathbf{u} \cdot d\mathbf{r}
+		\end{align*}
+		Where $\delta S$ is a small surface containing $\mathbf{r}$ perpendicular to $\mathbf{n}$ and $\delta C$ is an oriented closed curve that forms the boundary of $\delta S$ and whose orientation follows a right hand grip rule.
+\end{defi}
+
+Intuitively this corresponds to the amount of rotation per unit area in the plane perpendicular to $\mathbf{n}$. As with the divergence, we may derive an alternate form that is more convienient to compute.
+
+We first let $\mathbf{n} = \mathbf{e_1}$ to find the x component of the curl. We let $\delta S$ be a square of side length $\delta$ aligned with the coordinate axes and with center $\mathbf{r}$. Then as $\delta$ is small, in a similar manner to our divergence calculation, we may take contribution from the sides of the square perpendicular to $\mathbf{e_2}$ as
+\begin{align*}
+		\delta\mathbf{e_3} \cdot \left(\mathbf{u} + \frac{\delta}{2} \frac{\partial \mathbf{u}}{\partial x_2}\right) - \delta\mathbf{e_3} \cdot \left(\mathbf{u} - \frac{\delta}{2}\frac{\partial \mathbf{u}}{\partial x_2}\right) = \delta^2 \nabla_2 u_3.
+\end{align*}
+Using similar logic for the remaining 2 sides we have the x component of the curl as 
+\begin{align*}
+		\frac{\partial u_3}{\partial x_2} - \frac{\partial u_2}{\partial x_3} = \nabla_2 u_3 - \nabla_3 u_2.
+\end{align*}
+We may employ similar logic to the cases $\mathbf{n} = \mathbf{e_2}$ and $\mathbf{n} = \mathbf{e_3}$ to yield 
+\begin{align*}
+		(\text{curl}(\mathbf{u}))_i = \epsilon_{ijk} \nabla_j u_k
+\end{align*}
+So we have the curl is $\nabla \times \mathbf{u}$.
+
+\subsection{Compositions of Gradient, Divergence and Curl}
+
+We now consider the various ways to compose the operations we have just defined. Although there are nine ways to compose the symbols, of those, only 5 are meaningful, due to each only operating on scalar or vector fields.
+
+\begin{enumerate}
+
+		\item Divergence of the Gradient: 
+				\begin{align*}
+						\nabla \cdot \nabla \phi = \nabla_i (\nabla \phi)_i \\
+						= \nabla_i \nabla_i \phi
+				\end{align*}
+
+				This is the sum of the second partial derivatives of $\phi$. As we will later see, this has enough of a physical significance to have a name, the Laplacian, and we denote it by $\nabla^2$.
+
+		\item Curl of the Gradient. This is just the curl of a conservative vector field, which we have established is irrotational. So the curl of the gradient is always $0$.
+
+		\item Gradient of the Divergence: This yields no simplifications.
+
+		\item Divergence of the Curl:
+				\begin{align*}
+						\nabla \cdot \nabla \times \mathbf{u} = \nabla_i (\nabla \times \mathbf{u})_i \\
+						= \nabla_i \epsilon_{ijk} \nabla_j u_k \\
+						= \epsilon_{ijk} \nabla_i \nabla_j u_k
+				\end{align*}
+				This expression is $0$ by the symmetry of mixed partial derivatives.
+
+		\item Curl of the Curl:
+				\begin{align*}
+						(\nabla \times (\nabla \times \mathbf{u}))_i = \epsilon_{ijk} \nabla_j (\nabla \times \mathbf{u})_k \\
+						= \epsilon_{ijk}\epsilon_{klm} \nabla_j \nabla_l u_m \\
+						= (\delta_{il}\delta_{jm} - \delta_{im}\delta_{jl}) \nabla_j \nabla_l u_m \\
+						= \nabla_i \nabla_m u_m - \nabla_l \nabla_l u_i \\
+						= (\nabla(\nabla \cdot \mathbf{u}) - \nabla^2 \mathbf{u})_i.
+				\end{align*}
+				So we have the curl of the curl is $\nabla(\nabla \cdot \mathbf{u}) - \nabla^2 \mathbf{u}$
+		
+\end{enumerate}
+
+\subsection{Sum and Product Rules}
+
+First we consider the rules for using the nabla with sums of scalar and vector fields. This is trivial due to the linearity of the derivative operator.
+
+\begin{enumerate}
+		\item Gradient of a Sum: 
+				\begin{align*}
+						(\nabla (\phi + \psi))_i = \nabla_i (\phi + \psi) \\
+						= \nabla_i \phi + \nabla_i \psi \\
+						= (\nabla \phi + \nabla \psi)_i.
+				\end{align*}
+				So we have $\nabla(\phi + \psi) = \nabla\phi + \nabla\psi$
+		\item Divergence of a Sum
+				\begin{align*}
+						\nabla \cdot (\mathbf{u} + \mathbf{v}) = \nabla_i (\mathbf{u} + \mathbf{v})_i \\
+						= \nabla_i u_i + \nabla_i v_i \\
+						= \nabla \cdot \mathbf{u} + \nabla \cdot \mathbf{v}.
+				\end{align*}
+		\item Curl of a Sum
+				\begin{align*}
+						(\nabla \times (\mathbf{u} + \mathbf{v}))_i = \epsilon_{ijk} \nabla_j (\mathbf{u} + \mathbf{v})_k \\
+						= \epsilon_{ijk} \nabla_j u_k + \epsilon_{ijk} \nabla_j v_k \\
+						= (\nabla \times \mathbf{u} + \nabla \times \mathbf{v})_i.
+				\end{align*}
+				So we have $\nabla \times (\mathbf{u} + \mathbf{v}) = \nabla \times \mathbf{u} + \nabla \times \mathbf{v}$.
+\end{enumerate}
+
+Next we consider the rules for product. In this case the rules are not so simple, but still some are essentially the same as the product rules for derivatives of single variable functions as the nabla is just partial derviatives.
+
+\begin{enumerate}
+		\item Gradient of a Product of Scalars:
+				\begin{align*}
+						(\nabla (\phi\psi))_i = \nabla_i (\phi\psi) \\
+						= \phi \nabla_i \psi + \psi \nabla_i \phi \\
+						= (\phi \nabla \psi + \psi \nabla \phi)_i.
+				\end{align*}
+				So we have, essentially identical to the product rule, that $\nabla(\phi\psi) = \phi \nabla \psi + \psi \nabla \phi$.
+		\item Divergence of a Product of a Scalar and Vector:
+				\begin{align*}
+						\nabla \cdot (\phi \mathbf{u}) \\
+						= \nabla_i \phi u_i \\
+						= u_i \nabla_i \phi + \phi \nabla_i u_i \\
+						= \mathbf{u} \cdot \nabla \phi + \phi \nabla \cdot \mathbf{u}.
+				\end{align*}
+		\item Curl of a Product of a Scalar and Vector:
+				\begin{align*}
+						[\nabla \times (\phi \mathbf{u})]_i \\
+						= \epsilon_{ijk} \nabla_j \phi u_k \\
+						= \epsilon_{ijk}(\phi \nabla_j u_k + u_k \nabla_j \phi) \\
+						= \phi \epsilon_{ijk} \nabla_j u_k - \epsilon_{ikj} u_k (\nabla\phi)_j \\
+						= [\phi(\nabla \times \mathbf{u}) - \mathbf{u} \times \nabla\phi]_i
+				\end{align*}
+				Hence we have $\nabla \times (\phi \mathbf{u}) = \phi(\nabla\times\mathbf{u}) - \mathbf{u} \times \nabla\phi$.
+
+		\item Divergence of a Cross Product:
+				\begin{align*}
+						\nabla \cdot (\mathbf{u} \times \mathbf{v}) \\
+						= \nabla_i (\mathbf{u} \times \mathbf{v})_i \\
+						= \epsilon_{ijk} \nabla_i (u_j v_k) \\
+						= \epsilon_{ijk} (u_j \nabla_i v_k + v_k \nabla_i u_j) \\
+						= -u_j \epsilon_{jik} \nabla_i v_k + v_k \epsilon_{kij} \nabla_i u_j \\
+						= v_k (\nabla \times \mathbf{u})_k - u_j (\nabla \times \mathbf{v})_j \\
+						= \mathbf{v} \cdot \nabla \times \mathbf{u} - \mathbf{u} \cdot \nabla \times \mathbf{v}.
+				\end{align*}
+
+		\item Curl of a Cross Product:
+				\begin{align*}
+						[\nabla \times (\mathbf{u} \times \mathbf{v})]_i \\
+						= \epsilon_{ijk} \nabla_j (\mathbf{u} \times \mathbf{v})_k \\
+						= \epsilon_{ijk} \epsilon_{kl m} \nabla_j (u_l v_m) \\
+						= (\delta_{il}\delta_{jm} - \delta_{im}\delta_{jl}) \nabla_j (u_l v_m)\\
+						= u_i \nabla_m v_m - v_i \nabla_l u_l
+						= [(\nabla \cdot \mathbf{v}) \mathbf{u} - (\nabla \cdot \mathbf{u}) \mathbf{v}]_i
+				\end{align*}
+				So we have $\nabla \times (\mathbf{u} \times \mathbf{v}) = (\nabla \cdot \mathbf{v}) \mathbf{u} - (\nabla \cdot \mathbf{u}) \mathbf{v}$
+\end{enumerate}
+
+\section{Integral Theorems}
+
+\subsection{The Divergence Theorem}
+
+\begin{thm} [Divergence Theorem]
+		Let $\mathbf{u}$ be a vector field on a region $V$, $S$ the closed surface that forms the boundary of $V$ and $\mathbf{n}$ the unit normal to $S$ pointing outwards. Then we have
+		\begin{align*}
+				\iiint_V \nabla \cdot \mathbf{u} dV = \oiint_S \mathbf{u} \cdot \mathbf{n} dS.
+		\end{align*}
+\end{thm}
+
+\begin{proof}
+		We consider a differential region of $V$, $\delta V$. So we may take
+		\begin{align*}
+				\nabla \cdot \mathbf{u} \delta V = \oiint_{\delta S} \mathbf{u} \cdot \mathbf{n} dS
+		\end{align*}
+		So summing over all these differential pieces yields the integral over the entire region. The surfaces of neighboring differential regions cancel as the normal vector points in opposite directions on the shared surface. So we are left with only the surface integral on the boundary of $V$, which is what we sought to prove.
+\end{proof}
+
+We may use this result to show that, once specified on the boundary of a region, a solution to Laplace's equation must be unique. 
+
+We first note that due to the linearity of the Laplacian, we need only show uniqueness in the special case that $\phi = 0$ on the boundary. We now employ an algebraic trick
+\begin{align*}
+		\nabla^2 \phi = 0 \\
+		\phi \nabla^2 \phi = 0 \\
+		\nabla \cdot (\phi \nabla \phi) - \nabla \phi \cdot \nabla \phi = 0 \\
+		\|\nabla \phi\|^2 = \nabla \cdot (\phi \nabla \phi)
+		\iiint_V \|\nabla\phi\|^2 dV = \oiint_S \phi \nabla \phi \cdot \mathbf{n} dS \\
+		\iiint_V \|\nabla\phi\|^2 dV = 0 \\
+\end{align*}	
+This means that $\nabla \phi = 0$ everywhere, meaning $\phi$ is a constant. As $\phi =  0$ on the boundary, we have that the constant is zero. Hence $\phi = 0$.
+
+\subsection{Stoke's Theorem}
+
+\begin{thm} [Stoke's Theorem]
+		Let $\mathbf{u}$ be a vector field, $S$ a surface, $\mathbf{n}$ a unit normal to $S$ and $C$ the oriented closed curve forming the boundary of $S$ with an orientation obeying the right hand grip rule with respect to $\mathbf{n}$ and $S$. Then we have
+		\begin{align*}
+				\iint_S (\nabla \times \mathbf{u}) \cdot \mathbf{n} dS = \oint_C \mathbf{u} \cdot d\mathbf{r}.
+		\end{align*}
+\end{thm}
+
+\begin{proof}
+		In a manner similar to the proof of the divergence theorem, we consider a differential surface $\delta S$ of $S$. So we may take
+		\begin{align*}
+				(\nabla \times \mathbf{u}) \cdot \mathbf{n} \delta S = \oint_{\delta C} \mathbf{u} \cdot d\mathbf{r}.
+		\end{align*}
+		So we have the surface integral of the entirety of $S$ by summing these differential pieces. The boundaries of neighboring surfaces cancel as they will be oriented oppositely, so all that remains is the closed line integral around the entire surface $S$, which is the RHS.
+\end{proof}
+
+\end{document}
+

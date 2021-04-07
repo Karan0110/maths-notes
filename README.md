@@ -2,11 +2,13 @@
 The latex files need to be complied alongside header.tex
 
 # Maths Notes
-[Set Theory](set_theory.pdf)
-
-[Real Analysis](real_analysis.pdf)
-
 [Differential Equations](differential_equations.pdf)
 
 [Linear Algebra](linear_algebra.pdf)
+
+[Real Analysis](real_analysis.pdf)
+
+[Set Theory](set_theory.pdf)
+
+[Vector Calculus](vector_calculus.pdf)
 
