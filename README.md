@@ -10,5 +10,7 @@ The latex files need to be complied alongside header.tex
 
 [Set Theory](set_theory.pdf)
 
+[Topology](topology.pdf)
+
 [Vector Calculus](vector_calculus.pdf)
 

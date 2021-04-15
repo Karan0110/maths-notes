@@ -23,7 +23,112 @@
 				\item The union of any family of open sets is open.
 				\item The intersection of any finite family of open sets is open.
 		\end{enumerate}
-
 		Where we say a subset of $X$ is open if it belongs to $\mathcal{T}$.
+
+		In the extreme case of $\mathcal{T}$ containing every subset of $X$ we call $\mathcal{T}$ the discrete topology. On the other extreme of $\mathcal{T} = \{\emptyset, X\}$, we call $\mathcal{T}$ the indiscrete topology.
 \end{defi} 
+
+\begin{defi} [Continuity]
+	Let $S$ and $T$ be topological spaces and $f: S \to T$. We say $f$ is continuous if the preimage of every open set under $f$ is open.
+\end{defi}
+
+Particularly, a continuous bijection with continuous inverse is an isomorphism between topological spaces. 
+
+It should be noted that merely being a continuous bijection does not guarantee that the inverse is continuous. For example
+
+\begin{thm} 
+	Let $f: A \to B$ and $g: B \to C$ be continuous maps between topological spaces. Then the map $g \circ f$ is continuous. 
+\end{thm}
+
+\begin{proof}
+		Consider an arbitrary open set $U \in \mathcal{T}_C$. Then we have
+		\begin{align*}
+				(g \circ f)^{-1}(U) \\
+				= f^{-1} \circ g^{-1}(U)
+		\end{align*}
+		By the continuity of $g$, we have $g^{-1}(U)$ is open, and so by the continuity of $f$ we have $f^{-1} \circ g^{-1}(U)$ is open. Hence $g \circ f$ is continuous.
+\end{proof}
+
+\begin{defi} [Subspace Topology]
+		Let $(X, \mathcal{T})$ be a topological space. Then for a subset $S \subset X$, we say the subspace topology, or the induced topology, is the set of intersections of open sets in $X$ with $S$.		
+\end{defi}
+
+This collection of sets may be trivially verifed to obey the axioms of a topology.
+
+\subsection{Metric Spaces}
+
+\begin{defi} [Metric Space]
+		A metric space is an ordered pair $(M, d)$ where $d: M^2 \to \R$ satisfying
+		\begin{enumerate}
+				\item Definiteness:
+						\begin{align*}
+								d(x,y) = 0 \iff x = y
+						\end{align*}
+				\item Symmetry:
+						\begin{align*}
+								d(x,y) = d(y,x)
+						\end{align*}
+				\item Triangle Inequality:
+						\begin{align*}
+								d(x,y) + d(y,z) \geq d(x,z)	
+						\end{align*}
+		\end{enumerate}
+\end{defi}
+
+A trivial but noteworthy consequence of these axioms is that the distance between any distinct points is positive.
+
+\begin{defi} [Open Ball]
+		Given a metric space $(M, d)$. We define the open ball 
+	\begin{align*}
+			B_\delta(x) = \{y \in M : d(x,y) < \delta\}
+	\end{align*}
+\end{defi}
+
+We may generalise the definition of continuous functions from real analysis to metric spaces, noting that $\R$ is a metric space under the metric $d(x,y) = |x-y|$.
+
+\begin{defi} [Continuity]
+		Let $M$ and $N$ be metric spaces with metrics $d_M$ and $d_N$, respectively. 
+
+		Then the function $f: M \to N$ is continuous at $a \in M$ if for all $\epsilon > 0$ there exists a $\delta > 0$ such that for all $d(x,a) < \delta$ we have $d(f(a), f(x)) < \epsilon$.
+\end{defi}
+
+\begin{defi} [Metric Topology]
+		Let $(M,d)$ be a metric space. Then we may equip it with the metric topology defined such that a set, $U$, is open if for every point $x \in U$ there is an open ball centered at $x$ contained in $U$.
+\end{defi}
+
+This definition coincides in the case of $\R^n$ with our intuitive notions of openness, however we still must verify that the sets specified do indeed satisfy the axioms for a topology. However this is trivial, so we omit the proof.
+
+Having now also turned every metric space into a topological space, we note that there are now two separate possible definitions of continuity of a function between metric spaces. One in terms of pre-images of open sets and the standard epsilon-delta definition. 
+However this is not an issue, as we will now show the two seemingly distinct definitions coincide.
+
+\begin{thm}
+	Let $f: M \to N$ be a function between metric spaces. Then $f$ is topologically continuous precisely when it satisfies epsilon-delta continuity.
+\end{thm}
+
+\begin{proof}
+		First assume that $f$ is epsilon-delta continuous. And so consider an arbitrary open set $U$, and an arbitrary $x \in f^{-1}(U)$. 
+
+		Hence we have $f(x) \in U$, and so by the openness of $U$, we have an $\epsilon > 0$ such that $B_\epsilon f(x) \subset U$. By the epsilon-delta continuity of $f$ we have a $\delta > 0$ such that 
+		\begin{align*}
+				p \in B_\delta(x) \implies f(p) \in B_\epsilon f(x) \\
+				\implies f(p) \in U \\
+				\implies p \in f^{-1}(U)
+		\end{align*}
+		So we have that $B_\delta (x)$ is contained in $f^{-1}(U)$, hence $f^{-1}(U)$ is open and so $f$ is topologically continuous.
+
+		Now assume that $f$ is topologically continuous. Consider an arbitrary $x \in M$ and $\epsilon > 0$. Then by topological continuity we have that $f^{-1}(B_\epsilon f(x))$ is open and so we have a $\delta > 0$ such that $B_\delta(x) \subset f^{-1}(B_\epsilon f(x))$, yielding $f(B_\delta(x)) \subset B_\epsilon f(x)$, hence $f$ is epsilon-delta continuous.
+\end{proof}
+
+A variety of structures from different areas of mathematics lend themselves naturally to metrisation. From linear algebra, any inner product space is a metric space under the metric $d(x,y) = \|x-y\|$. From graph theory, any connected graph may be metrised using the distance function.
+
+\subsection{Bases}
+
+\begin{defi} [Basis]
+		Let $(X, \mathcal{T})$ be a topological space. Then a collection of open subsets $\mathcal{B}$ is a basis if every open subset of $X$ is the union of members of $\mathcal{B}$.	
+\end{defi}
+
+The main usefulness of bases is that often times a statement can be shown to hold for all open sets by just showing it holds for all elements of a basis. For example to show continuity, we need only show the pre-image of any basis element is open.
+
+\section{Topological Properties}
+
 \end{document}

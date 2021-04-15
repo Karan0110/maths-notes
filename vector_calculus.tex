@@ -400,5 +400,38 @@ This means that $\nabla \phi = 0$ everywhere, meaning $\phi$ is a constant. As $
 		So we have the surface integral of the entirety of $S$ by summing these differential pieces. The boundaries of neighboring surfaces cancel as they will be oriented oppositely, so all that remains is the closed line integral around the entire surface $S$, which is the RHS.
 \end{proof}
 
+\section{Curvilinear Coordinates}
+
+\subsection{Orthogonal Curvilinear Coordinates}
+
+Suppose we have an injection $\R^3 \to \R^3$ that maps $(x_1,x_2,x_3)$ to $(u_1,u_2,u_3)$. So instead of referring to a point $x \in \R^3$ in terms of its usual $x$, $y$ and $z$ components we may instead specify its $(u_1,u_2,u_3)$. 
+
+Just as we have coordinate axes and planes for cartesian coordinates, we generalise to coordinate curves and surfaces. That is, a coordinate surface is an isosurface for any particular $u_i$ and a coordinate curve is when two of $u_i$ are fixed.
+
+Of course we are assuming that the injection is sufficiently well-behaved for us to take partial derivatives, etc. However this does still leaves a much wider range of possibility than just a change of basis. 
+
+So the coordinate curves and surfaces need not be lines and planes. For example under spherical coordinates the coordinate surface corresponding to a constant $r$ coordinate is a sphere.
+
+In order for our curvilinear coordinates to be orthogonal, we require that that all coordinate curves intersect orthogonally. And also that the coordinates are right-handed.
+
+This allows us to define at each point in space an orthonormal basis $\{\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3\}$, with $\mathbf{e}_i = \frac{\partial \mathbf{x}}{\partial u_i} / h_i$, where $h_i$ is the necessary scalar to make $\mathbf{e}_i$ of unit length.
+
+So each of $\mathbf{e}_i$ is a unit tangent vector to the $u_i$ coordinate curve, and so locally the curvilinear coordinates behave as though they are rectangular. So we may write the displacement vector as
+\begin{align*}
+		d\mathbf{x} = h_1 \mathbf{e}_1 du_1 + h_2 \mathbf{e}_2 du_2 + h_3 \mathbf{e}_3 du_3.
+\end{align*}
+
+So we have the following:
+\begin{enumerate}
+		\item Differential Length:
+		\begin{align*}
+			ds^2 = d\mathbf{x} \cdot d\mathbf{x} = h_1^2 du_1^2 + h_2^2 du_2^2 + h_3^2 du_3^2.		
+		\end{align*}
+\item Differential volume:
+		\begin{align*}
+				dV = h_1h_2h_3 du_1 du_2 du_3.
+		\end{align*}
+\end{enumerate}
+
 \end{document}
 
