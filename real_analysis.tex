@@ -17,14 +17,152 @@
 
 \subsection{Limits}
 
-The value of a function $f$ at $a$, in the abscence of any other information about $f$, gives absolutely no information about $f$ for values close to $a$. A behaviour that is of significant interest is when $f$ "approaches" a value (which is not necessarily $f a$) at $a$, in the specific sense that by considering a sufficiently small neighborhood of $a$, all the images of $f$ are arbitrarily close to $a$. We formalise this intuition in defining the limit of $f$ at $a$.
+The value of a function $f$ at $a$, in the abscence of any other information about $f$, gives absolutely no information about $f$ for values close to $a$. A behaviour that is of significant interest is when $f$ "approaches" a value (which is not necessarily $f a$) at $a$. 
+
+This is in the sense that by considering a sufficiently small neighborhood of $a$, all the images of $f$ are arbitrarily close to $a$. We formalise this intuition in defining the limit of $f$ at $a$.
 
 \begin{defi}[Limit]
-		$l$ is the limit of $f$ at $a$, or symbolically $\lim_{x\to a} f(x) = l$ if and only if
-		\[
-				\forall \epsilon > 0 \exists \delta > 0: \forall 0 < |x - a| < \delta: |f(x) - l| < \epsilon
-		.\] 
+		Let $f$ be defined on some punctured open neighborhood of $a$. 
+
+		Then $l$ is the limit of $f$ at $a$, or $\lim_{x\to a}f(x) = l$ if for every $\epsilon > 0$ there exists a $\delta > 0$ such that for all $0 < |x-a| < \delta$ we have that $|f(x) - l| < \epsilon$.
 \end{defi}
 
+In our defintion we used the definite article, suggesting that the limit is unique. This is true however, so there is no issue. 
+
+\begin{thm} [Uniqueness of Limit]
+	The limit of a function $f$ at $a$, when it exists, is unique.	
+\end{thm}
+
+\begin{proof}
+		Let $l_1$ amd $l_2$ be the limits of $f$ at $a$. Assume for the sake of contradiction that $l_1 \neq l_2$, then we may assume by symmetry that $l_1 < l_2$. 
+
+		Taking $\epsilon = \frac{l_2 - l_1}{2}$, we have two punctured open neighborhoods of $a$ in which $|f(x) - l_1| < \epsilon$ and $|f(x) - l_2| < \epsilon$, respectively. So in their intersection we have that $f(x) < \frac{l_1+l_2}{2}$ and $f(x) > \frac{l_1+l_2}{2}$, which is a contradiction.
+
+		Hence we have $l_1 = l_2$, so the limit is unique.
+\end{proof}
+
+We now show that taking the limit behaves nicely with addition and multiplication. This is unsuprising given the intuitive idea behind a limit.
+
+\begin{thm} 
+		Let $\lim_{x \to a} f(x) = l_1$ and $\lim_{x \to a} g(x) =l_2$. Then we have
+		\begin{enumerate}
+				\item $\lim_{x\to a} (f+g)(x) = l_1 + l_2$ 
+				\item $\lim_{x\to a} (fg)(x) = l_1 l_2$ 
+				\item If $l_1$ is non-zero, then $\lim_{x \to a} \left(\frac{1}{f}\right)(x) = \frac{1}{l_1}$
+		\end{enumerate}
+\end{thm}
+
+\begin{proof}
+		The sum rule follows trivially from the triangle inequality. The product rule requires a small trick however. 
+
+		We consider an arbitrary small $\epsilon > 0$ and $x$ sufficiently close to $a$ such that 
+		\begin{align*}
+				|f(x) - l_1| < \epsilon \\
+				|g(x) - l_2| < \epsilon.
+		\end{align*}
+		We now have
+		\begin{align*}
+				|f(x)g(x) - l_1l_2| \\
+				= |f(x)g(x) - l_1 g(x) + l_1 g(x) - l_1 l_2| \\
+				< |g(x)| |f(x) - l_1| + |l_1| |g(x) - l_2| \\
+				< \epsilon (|g(x)| + |l_1|) \\
+				< \epsilon( (|l_2| + \epsilon) + |l_1|) \\
+				< \epsilon (|l_1| + |l_2| + 1).
+		\end{align*}
+		So we have the product rule.
+
+		Now we show the rule for reciprocals. First we note that as $l_1$ is non-zero, $f$ is non-vanishing on some punctured open neighborhood of $a$, and so $\frac{1}{f}$ is defined on a punctured open neighborhood of $a$. We then have for sufficiently close $x$ that
+		\begin{align*}
+				|\left(\frac{1}{f}\right)(x) - \frac{1}{l_1}| \\
+				= |\frac{1}{f(x)} - \frac{1}{l_1}| \\
+				= |\frac{l_1 - f(x)}{l_1 f(x)}| \\
+				< \frac{1}{|l_1||f(x)|} \epsilon.
+		\end{align*}
+		In a similar manner to the proof of the product rule, we may show that the $\epsilon$ coefficient is bounded above by some quantity constant with respect to $x$ and $\epsilon$, and so we have the reciprocal rule.
+\end{proof}
+
+\subsection{Continuous Functions}
+
+Intuitively a continuous function is one for which the graph has no sudden jumps, infinite oscillations, etc. That is, one which we may "draw without lifting our pen from the paper". Aside from being imprecise, this defintiion also fails to make any sense for continuity at a single point. 
+
+\begin{defi} [Continuous Function]
+	The function $f$ is continous at $a$ if 
+	\begin{align*}
+			\lim_{x \to a} f(x) = f(a).
+	\end{align*}
+\end{defi}
+
+Analytically this is extremely convienient as when we use continuous functions to reason about limits we no longer need to keep in mind the pesky condition that $f(a)$ itself must be ignored. For in the case of a continuous function, $f$ actually takes on the limit value at $a$.
+
+Using the results we have shown of limits of products, sums and reciprocals, we trivially have that continuous functions are closed under addition, multiplication and reciprocals (when the function does not vanish at $a$ ). 
+
+From this we have that every rational function is continuous everywhere apart from those points at which the denominator vanishes. So we may evaluate many limtis of rational functions by simply evaluating them at that point.
+
+An extremely useful result is that the continuous functions are closed under composition. 
+
+\begin{thm} [Composition of Continuous Functions]
+		Let $g$ be continuous at $a$ and $f$ continuous at $g(a)$. Then $f \circ g$ is continuous at $a$.
+\end{thm}
+
+\begin{proof}
+	Consider an arbitrary $\epsilon > 0$. By continuity we have a $\delta_1 > 0$ such that 
+	\begin{align*}
+			|x - g(a)| < \delta_1 \implies |f(x) - f\circ g(a)| < \epsilon.
+	\end{align*}
+	Again by continuity we have a $\delta_2 > 0$ such that 
+	\begin{align*}
+			|x-a| < \delta_2 \implies |g(x) - g(a)| < \delta_1.
+	\end{align*}
+	So for $|x - a| < \delta_2$ we have
+	\begin{align*}
+			|f \circ g(x) - f \circ g(a)| < \epsilon.
+	\end{align*}
+\end{proof}
+
+We now prove some non-trivial and extremely useful results about continuous functions.
+
+\begin{thm} [Intermediate Value Theorem]
+		Let $f$ be continuous on $[a,b]$ and $k$ between $f(a)$ and $f(b)$. Then there exists a $c \in [a,b]$ such that $f(c) = k$.
+\end{thm}
+
+\begin{proof}
+		Assume that $f(a) \leq f(b)$ as the other case uses similar logic. We also assume that $k$ is strictly between $f(a)$ and $f(b)$, as if this is not the case then $c = a$ or $c = b$ suffices.
+
+		We define the set $A = \{x \in [a,b]: (\forall z \in [a,x]: f(z) < k)\}$. Clearly $A$ is an interval. We see $a \in A$ and $A$ is bounded above by $b$, so the supremum $c$ of $A$ exists.
+
+		Say $f(c) < k$, then have $c \in A$ (if this were not the case then $c$ would be a limit point of $A$, and as $A$ is an interval, this means that $A = [a,c)$, but then as $f(c) < k$ this would mean $c \in A$, which is a contradiction) However by continuity and $c < b$ we then have a $\delta > 0$ such that $c + \delta \in A$, which contradicts $c$ being an upper bound.
+
+		Say $f(c) > k$, then we have $c \notin A$. So this means $c$ is a limit point of $A$, and as $A$ is an interval this means that $A = [a,c)$. However by continuity we have a $\delta > 0$ such that $f(c-\delta) > k$ which contradicts $A = [a,c)$.
+
+		So by trichotomy, we must have that $f(c) = k$.
+\end{proof}
+
+\begin{thm}
+		Let $f$ be continuous on $[a,b]$. Then $f$ is bounded on $[a,b]$.	
+\end{thm}
+
+\begin{proof}
+		We will show that $f$ is bounded above, as showing it is bounded below uses similar logic. 
+
+		We define the set $A = \{x \in [a,b] :  \text{$f$ is bounded above on $[a,x]$}\}$. $A$ is bounded above by $b$ and $a \in A$, so the supremum $\alpha$ of  $A$ exists.
+
+		Say $\alpha < b$, then by continuity we would have a $\delta > 0$ such that $\alpha + \delta \in A$, contradicting $\alpha$ being an upper bound. If $\alpha > b$ then there would also be a contradiction as $\alpha$ would need to be a limit point.
+
+		Hence $\alpha = b$. If $\alpha \notin A$, then it would be a limit point of $A$, and so $f$ would be bounded above on $[a,b-\epsilon]$ for every sufficiently small $\epsilon > 0$, and so by continuity at $b$, $f$ would be bounded above on $[a,b]$.
+\end{proof}
+
+\begin{thm}
+		Let $f$ be continuous on $[a,b]$. Then $f$ takes on a maximum and minimum value on the interval.
+\end{thm}
+
+\begin{proof}
+	We will just prove that it takes on a maximum, as the minimum uses similar logic.
+
+	We know that $f$ is bounded above on $[a,b]$. So let $\alpha$ be the least of these upper bounds. Say that $f$ never takes on the value of $\alpha$. Then $f(x) < \alpha$ for all $x \in [a,b]$, and so the denominator of $\frac{1}{\alpha - f}$ is non-vanishing on $[a,b]$ and so the function is continuous.
+
+	However $\alpha$ is the supremum and does not belong to the set of images of $f$, so it is a limit point, so we may make $f$ arbitrarily close to $\alpha$ and so $\frac{1}{f - \alpha}$ becomes arbitrarily large on $[a,b]$, contradicting that it must be bounded above by continuity.
+
+	So $f$ takes on the value of $\alpha$ at some $c \in [a,b]$, and so $f(c) = \alpha$ is a maximum value.
+\end{proof}
 
 \end{document}
