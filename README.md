@@ -4,6 +4,8 @@ The latex files need to be complied alongside header.tex
 # Maths Notes
 [Differential Equations](differential_equations.pdf)
 
+[Group Theory](group_theory.pdf)
+
 [Linear Algebra](linear_algebra.pdf)
 
 [Real Analysis](real_analysis.pdf)

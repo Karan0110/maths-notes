@@ -1,0 +1,231 @@
+\documentclass[]{article}
+
+\input{header}
+
+\title{Group Theory}
+\author{Karan Elangovan}
+
+\begin{document}
+
+\maketitle
+
+\doublespacing
+\tableofcontents
+
+\section{Groups}
+
+\subsection{Group Axioms}
+
+\begin{defi} [Group]
+		A group is an ordered pair $(G, \circ)$, where $\circ: G^2 \to G$ satisfying
+		\begin{enumerate}
+				\item (Associativity) The $\circ$ operation is associative.
+				\item (Identity) There exists an element $1 \in G$ such that $1 \circ x = x \circ 1 = x$ for all $x \in G$.
+				\item (Inverses) For every element $x$ there exists an element $x^{-1}$ such that $x \circ x^{-1} = x^{-1} \circ x = 1$.
+		\end{enumerate}
+\end{defi}
+
+From here on we will omit the $\circ$ symbol and just denote it by adjacency, and when the group operation is clear from context, we will refer to a group by its set.
+
+\begin{defi} [Subgroup]
+	Given a subset $H \subset G$, we say it forms a subgroup if $H$ is a group under the induced group operation from $G$.
+\end{defi}
+
+\subsection{Cosets}
+
+Given subsets $A, B \subset G$, we may define their product as
+\begin{align*}
+		AB = \{ab : a \in A, b \in B\}.
+\end{align*}
+That is, the set of all possible products of elements from $A$ and $B$. We see that from the associativity of element multiplication that multiplication of subsets is also associative.
+
+In the case that $A$ or $B$ is a singleton, we just write $xB$ and $Ax$ for $\{x\}B$ and $A\{x\}$ respectively. The case that one of $A, B$ is a subgroup and the other a singleton is of particular interest, leading us to the following definition:
+
+\begin{defi} [Cosets]
+	Let $H$ be a subgroup of $G$. Then the left cosets of $H$ in $G$, $G / H$ are the subsets of the form $xH$ for all $x \in G$. We define the right cosets, $H \backslash G$ similarly.	
+\end{defi}
+
+We have the following results about left and right cosets.
+
+\begin{thm}
+		Let $H$ be a subgroup of $G$, and $x, y \in G$. Then all of the following hold
+		\begin{enumerate}
+				\item $Hx = Hy$ precisely when $xy^{-1} \in H$. 
+				\item $|Hx| = |Hy|$.
+				\item $|Hx| = |xH|$.
+				\item $Hx = Hy$ or $Hx \cap Hy = \emptyset$.
+				\item $|G / H| = |H \backlash G|$
+		\end{enumerate}
+\end{thm}
+
+\begin{proof}
+		First assume $Hx = Hy$, then right multiplying by $\{y^{-1}\}$ yields $H(xy^{-1}) = H$. As $H$ is a subgroup, $1 \in H$, so $1(xy^{-1}) = xy^{-1} \in H$. Now assume $xy^{-1} \in H$, then as subgroups are closed under multiplication, we have $Hxy^{-1} = H$, so multiplying by $\{y\}$ yields $Hx = Hy$. Hence we have (1).
+
+		Define $f: Hx \to Hy$ by $f(g) = gx^{-1}y$. This has inverse $f^{-1}(g) = gy^{-1}x$, so $f$ is bijection, so $|Hx| = |Hy|$.	A similar bijection may be defined for (3).
+
+		Say that $Hx \cap Hy \neq \emptyset$, so we may choose $g \in Hx \cap Hy$, so we have $h_1, h_2 \in H$ such that $g = h_1x = h_2y$, yielding $xy^{-1} = h_1^{-1}h_2 \in H$, meaning $Hx = Hy$.
+\end{proof}
+
+Of course by symmetry similar results hold for right cosets.
+
+We now show that there are the same number of left and right cosets.
+
+\begin{thm}
+		Let $H$ be a subgroup of $G$. Then $|G / H| = |H \backslash G|$.
+\end{thm}
+
+\begin{proof}
+	We define the map $f: G / H \to H \backslash G$	by
+	\begin{align*}
+			f(gH) = Hg.
+	\end{align*}
+	We first need to show that $f$ is well-defined. Say $g_1H = g_2H$, then $g_1g_2^{-1} \in H$, so $Hg_1 = Hg_2$. Similar logic shows that $f$ is an injection. We also have $f$ is trivially a surjection. So $f$ is a bijection between the left and right cosets. Hence we have $|G / H| = |H \backslash G|$.
+\end{proof}
+
+In light of the previous result, we make the following definition:
+
+\begin{defi} [Index of a Subgroup]
+		Let $H$ be a subgroup of $G$. We define the index of $H$ in $G$, $[G:H]$ as the common cardinality of the left cosets and the right cosets of $H$ in $G$, $|G / H| = |H \backslash G|$.
+\end{defi}
+
+In light of our work, the next theorem now follows trivially.
+
+\begin{thm} [Lagrange's Theorem]
+	Let $G$ be a subgroup of $H$, then we have
+	\begin{align*}
+			|G| = [G:H]|H|.
+	\end{align*}
+\end{thm}
+
+\begin{proof}
+		The left cosets of $H$ in $G$ form a partition of $G$, with each equivalency class of cardinality $|H|$. Hence we have $|G| = |H|[G:H]$.
+\end{proof}
+
+\begin{thm}
+	Let $K \leq L \leq G$, then we have 
+	\begin{align*}
+			[G:L][L:K] = [G:K]
+	\end{align*}
+\end{thm}
+
+\begin{proof}
+		Let $A$ and $B$ be left transversals of $G / L$ and $L / K$, respectively. 
+
+		First we note that if $a, a' \in A$ and $b, b' \in B$ are such that $abK = a'b'K$, then we have
+		\begin{align*}
+				abKL = a'b'KL \\
+				abL = a'b'L \\
+				aL = a'L \\
+				a = a' \\
+				b = b'.
+		\end{align*}
+		Hence $abK = a'b'K$ precisely when $a = a'$ and $b = b'$.
+
+		Define the mapping $f: A \times B \to AB$ by 
+		\begin{align*}
+				f(a,b) = ab.
+		\end{align*}
+		This is trivially surjective and is injective by our initial observation. Hence we have
+		\begin{align*}
+				|AB| = |A||B| \\
+				= [G:L][L:K].
+		\end{align*}
+
+		Define the mapping $g: AB \to G / K$ by 
+		\begin{align*}
+				g(x) = xK.
+		\end{align*}
+		By the initial observation this is injective. We see that
+		\begin{align*}
+				\cup g(AB) = ABK \\
+				= AL \\
+				= G.
+		\end{align*}
+		So we have that $g$ is surjective. Hence we have
+		\begin{align*}
+				[G : K] = |AB| \\
+				= [G:L][L:K].
+		\end{align*}
+\end{proof}
+
+The above result is a generalisation of Lagrange's Theorem, which follows by letting $K$ be the trivial subgroup.
+
+We now derive an upper bound for the index of finite intersections of subgroups.
+
+\begin{thm}
+		Let $H_1, H_2, \ldots, H_m \leq G$. Then we have
+		\begin{align*}
+				[G : \cap_{i=1}^n H_i] \leq \prod_{i = 1}^n [G : H_i].
+		\end{align*}
+\end{thm}
+
+\begin{proof}
+		Consider $H, K \leq G$. Define the mapping $f: K / (H \cap K) \to G / H$ by 
+		\begin{align*}
+				f(k (H\cap K)) = kH.
+		\end{align*}
+		This is well-defined as $H\cap K \leq H$. Now we show that $f$ is injective:
+		\begin{align*}
+				f(k_1 (H \cap K)) = f(k_2 (H \cap K)) \\
+				k_1 H = k_2 H \\
+				k_1 k_2^{-1} \in H \cap K \\
+				k_1 (H \cap K) = k_2 (H \cap K).
+		\end{align*}
+		So we have that 
+		\begin{align*}
+				[K : H \cap K] \leq [G : H] \\
+				[G : K][K : H \cap K] \leq [G : K][G : H] \\
+				[G : H \cap K] \leq [G : K][G : H].
+		\end{align*}
+
+		Hence the result for an arbitrary finite intersection follows from a trivial induction.
+\end{proof}
+
+In particular this means that a finite intersection of subgroups of finite index has a finite index itself. 
+
+Another natural product to consider is that between two subgroups, $H$ and $K$. Of course in general this is not a subgroup itself, however we may derive a formula for the cardinality of this product when $H$ and $K$ are finite.
+
+\begin{thm}
+		Let $H$ and $K$ be finite subgroups of $G$. Then we have
+		\begin{align*}
+				|HK| = \frac{|H| |K|}{|H \cap K|}.
+		\end{align*}
+\end{thm}
+
+\begin{proof}
+		We note that 
+		\begin{align*}
+				HK = \cup \{Hk\}_{k\in K}
+		\end{align*}
+
+		Now say that $Hk_1 = Hk_2$ for $k_1, k_2 \in K$, then we have that $k_1k_2^{-1} \in H \cap K$, or equivalently $(H \cap K) k_1 = (H \cap K) k_2$. The converse follows trivially. So we have a bijective correspondence between $\{Hk\}_{k\in K}$ and the right cosets of  $H \cap K$ in $K$.
+
+		Hence we have
+		\begin{align*}
+			|HK| = |H|[K : H\cap K] \\
+			= \frac{|H| |K|}{|H \cap K|}.
+		\end{align*}
+\end{proof}
+
+\subsection{Subgroup Generation}
+
+An arbitrary subset $X \subset G$ is not necessarily a subgroup under the induced operation. So we aim to define the notion of the "smallest" subgroup that contains $X$.
+
+\begin{defi} [Generated Subgroup]
+	Let $X \subset G$. Then we define the subgroup generated by $X$ as the intersection of all subgroups which contain $X$.
+\end{defi}
+
+This does indeed define a subgroup, as $G$ itself contains $X$, so the intersection is non-empty. This definition also trivially means that $\langle X \rangle $ is minimal amongst subgroups containing $X$. 
+
+An alternative way in which to think of $\langle X \rangle $ is as the set of all possible compositions of elements of  $X$ and their inverses, as of course this belongs to $\langle X \rangle $ and vice versa. To this end we make the following defintion:
+
+\begin{defi} [Word]
+		Let $X \subset G$. Then we define a word on $X$ as any finite sequence of elements of $X$ and their inverses.
+
+		We define the value of a word to be the product of the terms in order.
+\end{defi}
+
+In essence, a word is a formalisation to speak of the actual terms in a product instead of merely the value of the product itself. In this way we see that the values of all words on $X$ are closed under inverses and products, and so we see that the set of all possible values of words is $\langle X \rangle $.
+
+\end{document}
+
