@@ -37,7 +37,9 @@
 \subsection{Linear Independence, Spanning Sets and Bases}
 
 \begin{defi} [Linear Combination]
-		Let $\mathcal{V} = \{v_1, v_2, \ldots, v_n\}$ be a finite\footnote{\label{infinite-linear-combinations} The definition may be extended for sets of infinite cardinality as well, with the restriction that all but finitely many of the choices made by $f$ are $0$, allowing us to sidestep issues of infinite sums. However most useful applications and results are with regards to the finite case, so we restrict our definitions and study to this case.} set of vectors in $V$. Then we define a linear combination of $\mathcal{V}$ as a function $f: \mathcal{V} \to k$. To each linear combination corresponds a vector $f(v_1) v_1 + f(v_2) v_2 + \ldots + f(v_n) v_n$ as a linear combination. Whether we are speaking of the actual vector corresponding to a linear combination or the choice of scalars is usually easily inferred from context.
+		Let $\mathcal{V} = \{v_1, v_2, \ldots, v_n\}$ be a finite\footnote{\label{infinite-linear-combinations} The definition may be extended for sets of infinite cardinality as well, with the restriction that all but finitely many of the choices made by $f$ are $0$, allowing us to sidestep issues of infinite sums. However most useful applications and results are with regards to the finite case, so we restrict our definitions and study to this case.} set of vectors in $V$. Then we define a linear combination of $\mathcal{V}$ as a function $f: \mathcal{V} \to k$. 
+
+		To each linear combination corresponds a vector $f(v_1) v_1 + f(v_2) v_2 + \ldots + f(v_n) v_n$. Whether we are speaking of the actual vector corresponding to a linear combination or the choice of scalars is usually easily inferred from context.
 \end{defi}
 
 \begin{defi} [Span]
@@ -63,6 +65,10 @@
 		We say a finite set of vectors $\mathcal{V}$ is linearly independent if it satisfies any of the equivalent conditions in theorem ~\ref{thm:equiv-lin-ind}.
 \end{defi}
 
+\begin{defi} [Basis]
+		We say a finite set of vectors $\mathcal{V}$ is a basis of $V$ if it is linearly independent and a spanning set.
+\end{defi}
+
 \begin{thm}
 	The cardinality of any linearly independent set cannot exceed the cardinality of any spanning set.
 \end{thm}
@@ -85,9 +91,11 @@
 	which we know exists as otherwise $S'$ would be linearly independent. Hence we may discard this $u_i$ to leave the desired spanning set. The base case follows from $\mathcal{V}$ being spanning. Hence we have an injection from $\mathcal{W} \to \mathcal{V}$ by which $v \in \mathcal{V}$ is replaced by $w \in \mathcal{W}$ in the construction. Hence $|\mathcal{W}| \leq |\mathcal{V}|$.
 \end{proof}
 
-As a trivial consequence of this, we have that any two bases have the same cardinality as their cardinalities bound eachother above and below as a basis is simultaeneously a spanning set and a linearly independent set. So we may call this invariant quantity the "dimension" of the vector space. However there is a caveat, namely that this assumes that there is a basis at all. When we extend our defintions to inlcude the idea of a linear combination of an infinite set as mentioned in footnote ~\ref{infinite-linear-combinations} it may be shown that every vector space has a basis (this is a trivial consequence of Zorn's lemma when we view a basis as a maximal linearly independent set)
+As a trivial consequence of this, we have that any two bases have the same cardinality as their cardinalities bound eachother above and below as a basis is simultaeneously a spanning set and a linearly independent set. 
 
-\begin{defi} [Finite-Dimensional Vector Spaces]
+So we may call this invariant quantity the "dimension" of the vector space. However there is a caveat, namely that this assumes that there is a basis at all. When we extend our defintions to inlcude the idea of a linear combination of an infinite set as mentioned in footnote ~\ref{infinite-linear-combinations} it may be shown that every vector space has a basis (this is a trivial consequence of Zorn's lemma when we view a basis as a maximal linearly independent set)
+
+\begin{defi} [Dimension]
 		The vector space $V$ is finite dimensional if it has a basis.
 		If $V$ is finite dimensional, then we call the common cardinality of all of its bases the dimension of $V$, $\dim V$.
 \end{defi}
@@ -120,7 +128,9 @@ The structure of a vector space is given by the operations of addition and scala
 		T(a_1 v_1 + a_2 v_2 + \ldots + a_n v_n) = a_1 w_1 + a_2 w_2 + \ldots + a_n w_n
 		.\] 
 
-		This is well-defined as $\mathcal{V}$ is a basis and hence each vector has a unique representation as a linear combination. Homogeneity and additivity are trivially verifiable. Hence there does exist such a map. The uniqueness follows from expressing each vector as a linear combination of $\mathcal{V}$, from which the requirements of a linear map and our hypothesis leave only one possibile choice for the image.
+		This is well-defined as $\mathcal{V}$ is a basis and hence each vector has a unique representation as a linear combination. Homogeneity and additivity are trivially verifiable. Hence there does exist such a map. 
+
+		The uniqueness follows from expressing each vector as a linear combination of $\mathcal{V}$, from which the requirements of a linear map and our hypothesis leave only one possibile choice for the image.
 \end{proof}
 
 A trivial but noteworthy corrolary is that if $V$ and $W$ are finite-dimensional and of equal dimension they must have a bijective linear map bewteen them, meaning they are isomorphic. This means that for finite dimensional vector spaces, the dimension totally determines the structure. So we may treat $k^n$ as the canonical vector space of dimension $n$.
@@ -133,7 +143,11 @@ Similarly to group homomorphisms, the kernel of a linear map is a subspace, and 
 
 \subsection{Quotient Spaces}
 
-Consider a vector space $V$ and a subspace $U$. We wish to define a vector space $V / U$ that is conceptually the vector space $V$, but in which we consider vectors which differ only by some vector in $U$ as identical. More precisely $V / U$ is the set of equivalence classes under the equivalence relation $v \sim u \iff (v-u) \in U$, with addition and scalar multiplication defined on coset representatives. These operations may be shown to be well-defined and to yield a vector space, we omit the proofs as they are essentially identical in logic to showing the cosets of a normal subgroup form a group.
+Consider a vector space $V$ and a subspace $U$. We wish to define a vector space $V / U$ that is conceptually the vector space $V$, but in which we consider vectors which differ only by some vector in $U$ as identical. 
+
+More precisely $V / U$ is the set of equivalence classes under the equivalence relation $v \sim u \iff (v-u) \in U$, with addition and scalar multiplication defined on coset representatives. 
+
+		These operations may be shown to be well-defined and to yield a vector space, we omit the proofs as they are essentially identical in logic to showing the cosets of a normal subgroup form a group.
 
 		\begin{defi} [Quotient Space]
 				The quotient space $V / U$ is the set of cosets of $U$ in $V$, with the operations of addition and scalar multiplication defined on coset representatives.
@@ -212,7 +226,7 @@ We may better better understand an operator on $V$ by instead considering how it
 The simplest case is when the subspace has dimension $1$, in which case it is the span of some non-zero vector $v$, and so it must be the case that $T(v) = \lambda v$ for some $\lambda \in k$. When this is the case we call $v$ an eigenvector and $\lambda$ its corresponding eigenvalue. Whilst every eigenvector may of course only correspond to a single eigenvalue, the converse does not hold, indeed the eigenvectors of a specfic eigenvalue (which, alongside $0$, trivially form a subspace) need not even have dimension $1$.
 
 \begin{defi}
-		Let $T \in \mathcal{V}$. Then $\lambda \in k$ is an eigenvalue if any of the following equivalent criteria hold
+		Let $T \in \mathcal{L}(V)$. Then $\lambda \in k$ is an eigenvalue if any of the following equivalent criteria hold
 		\begin{enumerate}
 				\item We have some non-zero $v \in V$ such that $T(v) = \lambda v$ 
 				\item $T - \lambda I$ is not injective.
@@ -288,9 +302,19 @@ If we consider an operator $T \in \mathcal{L}(V)$, we may express the condition 
 \begin{proof}
 		First we assume the entries on the diagonal are non-zero. Let them be $\lambda_1, \lambda_2, \ldots, \lambda_n$ from left to right. We claim that $v_1, v_2, \ldots, v_n \in T(V)$. We proceed by induction, assume $v_1, v_2, \ldots, v_j \in T(V)$. 
 
-		We have that $T(\frac{v_{j+1}}{\lambda_{j+1}}) = v_{j+1} + b_j v_j + \ldots + b_2 v_2 + b_1 v_1$ for some scalars $b_1, b_2, \ldots, b_j$, so we have $v_{j+1} \in T(V)$. So we have $v_1, v_2, \ldots, v_n \in T(V)$ as claimed, and so $V \subset T(V)$ as $\mathcal{V}$ spans $V$, so $T$ is surjective. As $V$ is finite dimensional, this means that $T$ is bijective.
+		We have that 
+		\begin{align*}
+			T(\frac{v_{j+1}}{\lambda_{j+1}}) = v_{j+1} + b_j v_j + \ldots + b_2 v_2 + b_1 v_1	
+		\end{align*}
+		for some scalars $b_1, b_2, \ldots, b_j$, so we have $v_{j+1} \in T(V)$. So we have $v_1, v_2, \ldots, v_n \in T(V)$ as claimed, and so $V \subset T(V)$ as $\mathcal{V}$ spans $V$, so $T$ is surjective. As $V$ is finite dimensional, this means that $T$ is bijective.
 
-		Now assume that $T$ is bijective. Say that an entry $\lambda_j = 0$, then $T(v_1), T(v_2), \ldots, T(v_j) \in \vspan\{v_1, v_2, \ldots, v_j\}$. As the span has dimension $j$, the images must be linearly dependent, contradicting that bijective linear maps preserve linear independence. Hence all the entries on the diagonal are non-zero.
+		Now assume that $T$ is bijective. Say that an entry $\lambda_j = 0$, then 
+
+		\begin{align*}
+		T(v_1), T(v_2), \ldots, T(v_j) \in \vspan\{v_1, v_2, \ldots, v_j\}. 
+		\end{align*}
+
+		As the span has dimension $j$, the images must be linearly dependent, contradicting that bijective linear maps preserve linear independence. Hence all the entries on the diagonal are non-zero.
 \end{proof}
 
 \begin{thm}
